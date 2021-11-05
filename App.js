@@ -82,9 +82,7 @@ export default function App() {
   const GuestPage = () => {
     return (
       <View style={styles.container}>
-        <Text style={styles.paragraph}>
-          Opret eller Login med din firebase Email
-        </Text>
+        <Text style={styles.paragraph}>Login med din firebase Email</Text>
 
         <Card style={{ padding: 20 }}>
           <SignUpForm />
