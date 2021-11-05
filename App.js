@@ -96,7 +96,7 @@ export default function App() {
 
         <Card style={{ padding: 20 }}>
           <Button
-            onPress={() => navigation.navigate("Create")}
+            onPress={() => navigation.navigate("Create Account Page")}
             title="Create Account"
           />
         </Card>
@@ -119,8 +119,8 @@ export default function App() {
   const PublicStackNavigation = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name={"Guest"} component={GuestPage} />
-        <Stack.Screen name={"Create"} component={CreatePage} />
+        <Stack.Screen name={"Welcome Page"} component={GuestPage} />
+        <Stack.Screen name={"Create Account Page"} component={CreatePage} />
       </Stack.Navigator>
     );
   };
@@ -142,7 +142,12 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen
-          name={"Profile List"}
+          name={"My Profile"}
+          component={MyProfile}
+          options={{ tabBarIcon: () => <Ionicons name="home" size={20} /> }}
+        />
+        <Tab.Screen
+          name={"Groups"}
           component={StackNavigation}
           options={{
             tabBarIcon: () => <Ionicons name="search" size={20} />,
@@ -150,14 +155,9 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name={"Add Profile to Search List"}
+          name={"Events"}
           component={Add_edit_Profile}
-          options={{ tabBarIcon: () => <Ionicons name="add" size={20} /> }}
-        />
-        <Tab.Screen
-          name={"My Profile"}
-          component={MyProfile}
-          options={{ tabBarIcon: () => <Ionicons name="home" size={20} /> }}
+          options={{ tabBarIcon: () => <Ionicons name="search" size={20} /> }}
         />
       </Tab.Navigator>
     </NavigationContainer>
