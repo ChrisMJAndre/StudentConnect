@@ -15,7 +15,7 @@ console.warn = (message) => {
 
 // Import of dependencies - Chris
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import firebase from "firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -78,20 +78,50 @@ export default function App() {
     };
   }, []);
 
-  // Defing the GuestPage where you can sign up or log in and link to the two corresponding components - Chris
-  const GuestPage = () => {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.paragraph}>Login med din firebase Email</Text>
-
-        <Card style={{ padding: 20 }}>
+  /*
+<Card style={{ padding: 20 }}>
           <SignUpForm />
         </Card>
+*/
+
+  // Defing the GuestPage where you can sign up or log in and link to the two corresponding components - Chris
+  const GuestPage = ({ navigation }) => {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.paragraph}>Login with your Email</Text>
 
         <Card style={{ padding: 20 }}>
           <LoginForm />
         </Card>
+
+        <Card style={{ padding: 20 }}>
+          <Button
+            onPress={() => navigation.navigate("Create")}
+            title="Create Account"
+          />
+        </Card>
       </View>
+    );
+  };
+
+  const CreatePage = () => {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.paragraph}>Create a new Account</Text>
+
+        <Card style={{ padding: 20 }}>
+          <SignUpForm />
+        </Card>
+      </View>
+    );
+  };
+
+  const PublicStackNavigation = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name={"Guest"} component={GuestPage} />
+        <Stack.Screen name={"Create"} component={CreatePage} />
+      </Stack.Navigator>
     );
   };
 
@@ -105,6 +135,7 @@ export default function App() {
       </Stack.Navigator>
     );
   };
+
   // If the user is logged in he/she should se the navigation container which has the bottom navigator so that the user can tab between them - Chris
   // If not logged in the user should be thrown back to the Guest Page where they can sign up or log in - Chris
   return user.loggedIn ? (
@@ -131,7 +162,9 @@ export default function App() {
       </Tab.Navigator>
     </NavigationContainer>
   ) : (
-    <GuestPage />
+    <NavigationContainer>
+      <PublicStackNavigation />
+    </NavigationContainer>
   );
 }
 // Defining styles - Chris
