@@ -33,6 +33,9 @@ import ProfileList from "./Components/ProfileList";
 import Add_edit_Profile from "./Components/Add_edit_Profile";
 import ProfileDetails from "./Components/ProfileDetails";
 import MyProfile from "./Components/MyProfile";
+import Add_edit_Group from "./Components/Groups/Add_edit_Group";
+import GroupList from "./Components/Groups/GroupList";
+import GroupDetails from "./Components/Groups/GroupDetails";
 
 // Here the code of App.js starts with the start of function App - Chris
 export default function App() {
@@ -129,9 +132,9 @@ export default function App() {
   const StackNavigation = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name={"SearchProfileList"} component={ProfileList} />
-        <Stack.Screen name={"ProfileDetails"} component={ProfileDetails} />
-        <Stack.Screen name={"EditProfile"} component={Add_edit_Profile} />
+        <Stack.Screen name={"SearchGroupList"} component={GroupList} />
+        <Stack.Screen name={"GroupDetails"} component={GroupDetails} />
+        <Stack.Screen name={"EditGroup"} component={Add_edit_Group} />
       </Stack.Navigator>
     );
   };
@@ -156,15 +159,19 @@ export default function App() {
         />
         <Tab.Screen
           name={"Events"}
-          component={Add_edit_Profile}
+          component={Add_edit_Group}
           options={{ tabBarIcon: () => <Ionicons name="search" size={20} /> }}
         />
       </Tab.Navigator>
     </NavigationContainer>
+
   ) : (
     <NavigationContainer>
       <PublicStackNavigation />
     </NavigationContainer>
+
+    
+    
   );
 }
 // Defining styles - Chris
