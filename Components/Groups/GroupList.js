@@ -17,6 +17,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStackNavigator } from "@react-navigation/stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
+//import { useHistory } from "react-router-dom";
 
 // Define component - Chris
 const GroupList = ({ navigation }) => {
@@ -52,13 +53,19 @@ const GroupList = ({ navigation }) => {
   const groupKeys = Object.keys(groups);
 
   const Stack = createNativeStackNavigator();
-
+/*
+  const history = useHistory();
+  
+  const handleRoute = () =>{ 
+    history.push("/Add_edit_Group");
+  }
+*/
   // We use profileKeys to find the ID of the profile and return it as a key - Chris
   return (
     <View>
       <Button
                 onPress={() => alert('This is a button!')}
-                title="Info"
+                title="+"
                 color="#00cc00"
                 align="right"
                 style={styles.but}

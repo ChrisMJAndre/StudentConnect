@@ -9,18 +9,36 @@ import {
   Alert,
   ScrollView,
   SafeAreaView,
+  Picker
 } from "react-native";
 import firebase from "firebase";
 import { useEffect, useState } from "react";
 
 // Defining the component that is later exported to App.js - Chris
 const Add_edit_Group = ({ navigation, route }) => {
+
+  const Picker = () => {
+    const [selectedValue, setSelectedValue] = useState("Studie");
+    return (
+      <View style={styles.picker}>
+      <Picker
+        selectedValue={selectedValue}
+        style={{ height: 50, width: 150 }}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+      >
+        <Picker.Item label="Studie" value="Studie" />
+        <Picker.Item label="Night out" value="nigghtout" />
+      </Picker>
+      </View>
+    );
+  };
+
   // Defining the initial state of the array that contains information about the user - Chris
   const initialState = {
     GroupName: "",
     Description: "",
     StudyProgramme: "",
-    GroupType: "",
+    GroupType: {Picker},
     ContactInfo: "",
   };
 
@@ -139,5 +157,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 5,
     flex: 1,
+  },
+  picker: {
+    flex: 1,
+    paddingTop: 40,
+    alignItems: "center"
   },
 });
