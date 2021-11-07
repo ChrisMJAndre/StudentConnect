@@ -57,14 +57,14 @@ const GroupList = ({ navigation }) => {
   const history = useHistory();
   
   const handleRoute = () =>{ 
-    history.push("/Add_edit_Group");
+    history.push("EditGroup");
   }
 */
   // We use profileKeys to find the ID of the profile and return it as a key - Chris
   return (
     <View>
       <Button
-                onPress={() => alert('This is a button!')}
+                onPress={navigation.navigate("EditGroup")}
                 title="+"
                 color="#00cc00"
                 align="right"
