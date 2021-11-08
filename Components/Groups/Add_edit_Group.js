@@ -27,7 +27,7 @@ const Add_edit_Group = ({ navigation, route }) => {
         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
       >
         <Picker.Item label="Studie" value="Studie" />
-        <Picker.Item label="Night out" value="nigghtout" />
+        <Picker.Item label="Night out" value="nightout" />
       </Picker>
       </View>
     );

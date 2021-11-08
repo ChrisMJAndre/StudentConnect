@@ -135,6 +135,7 @@ export default function App() {
         <Stack.Screen name={"SearchGroupList"} component={GroupList} />
         <Stack.Screen name={"GroupDetails"} component={GroupDetails} />
         <Stack.Screen name={"EditGroup"} component={Add_edit_Group} />
+        <Stack.Screen name={"Create Account Page"} component={SignUpForm} />
       </Stack.Navigator>
     );
   };
@@ -174,6 +175,7 @@ export default function App() {
     
   );
 }
+
 // Defining styles - Chris
 const styles = StyleSheet.create({
   container: {

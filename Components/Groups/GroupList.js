@@ -6,17 +6,10 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
-  ScrollView,
   Button,
-  Image,
 } from "react-native";
 import firebase from "firebase";
 import { useEffect, useState } from "react";
-import Add_edit_Group from "./Add_edit_Group";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createStackNavigator } from "@react-navigation/stack";
-import Ionicons from "react-native-vector-icons/Ionicons";
 //import { useHistory } from "react-router-dom";
 
 // Define component - Chris
@@ -52,19 +45,15 @@ const GroupList = ({ navigation }) => {
   const groupArray = Object.values(groups);
   const groupKeys = Object.keys(groups);
 
-  const Stack = createNativeStackNavigator();
-/*
-  const history = useHistory();
-  
-  const handleRoute = () =>{ 
-    history.push("EditGroup");
-  }
-*/
+  const routeGroup = () => {
+    navigation.navigate("EditGroup");
+  };
+
   // We use profileKeys to find the ID of the profile and return it as a key - Chris
   return (
     <View>
       <Button
-                onPress={navigation.navigate("EditGroup")}
+                onPress={() => routeGroup}
                 title="+"
                 color="#00cc00"
                 align="right"
