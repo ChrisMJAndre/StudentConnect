@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 //import { useHistory } from "react-router-dom";
 
 // Define component - Chris
-const GroupList = ({ navigation }) => {
+const GroupList = ({ navigation, route }) => {
   const [groups, setgroups] = useState();
 
   // We snapshot the profiles defined - Chris - read up on what a snapshot is- Chris
@@ -53,7 +53,7 @@ const GroupList = ({ navigation }) => {
   return (
     <View>
       <Button
-                onPress={() => routeGroup}
+                onPress={() => routeGroup()}
                 title="+"
                 color="#00cc00"
                 align="right"
