@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import { StyleSheet, Text, View, Image, Button } from "react-native";
 
+//Imports for Camera
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import CameraScreen from "./CameraScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import ImageScreen from "./ImageScreen";
+
 //KOMMENTER NEDENSTÅNDE UD, HVIS DU ØNSKER AT TILBAGEFØRE GAMMELT PROFIL-VIEW
 
 const MyProfile = (props) => {
