@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Button,
+  ScrollView,
+} from "react-native";
 
 //Imports for Camera
 import { createStackNavigator } from "@react-navigation/stack";
@@ -25,43 +32,47 @@ const MyProfile = (props) => {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerContent}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: "https://i.imgur.com/HSfOA5y.jpg",
-            }}
-          />
+      <ScrollView>
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <Image
+              style={styles.avatar}
+              source={{
+                uri: "https://i.imgur.com/HSfOA5y.jpg",
+              }}
+            />
 
-          <Text style={styles.name}>{firebase.auth().currentUser.email}</Text>
-          <Button onPress={() => handleLogOut()} title="Log out" />
-          <Text style={styles.info}>Student at Copenhagen Business School</Text>
+            <Text style={styles.name}>{firebase.auth().currentUser.email}</Text>
+            <Button onPress={() => handleLogOut()} title="Log out" />
+            <Text style={styles.info}>
+              Student at Copenhagen Business School
+            </Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTittle}>Name</Text>
-        <Text> Johan Isak Fink Lundtoft</Text>
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTittle}>Date of Birth</Text>
-        <Text> 27 / 06 - 1998</Text>
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTittle}>Study Programme</Text>
-        <Text> Erhvervsøkonomi og IT (HA.it)</Text>
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTittle}>Phone Number</Text>
-        <Text> +45 60 25 04 44</Text>
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTittle}>Email</Text>
-        <Text> Jolu19ac@student.cbs.dk</Text>
-      </View>
-      <View style={styles.body}>
-        <View style={styles.bodyContent}></View>
-      </View>
+        <View style={styles.card}>
+          <Text style={styles.cardTittle}>Name</Text>
+          <Text> Johan Isak Fink Lundtoft</Text>
+        </View>
+        <View style={styles.card}>
+          <Text style={styles.cardTittle}>Date of Birth</Text>
+          <Text> 27 / 06 - 1998</Text>
+        </View>
+        <View style={styles.card}>
+          <Text style={styles.cardTittle}>Study Programme</Text>
+          <Text> Erhvervsøkonomi og IT (HA.it)</Text>
+        </View>
+        <View style={styles.card}>
+          <Text style={styles.cardTittle}>Phone Number</Text>
+          <Text> +45 60 25 04 44</Text>
+        </View>
+        <View style={styles.card}>
+          <Text style={styles.cardTittle}>Email</Text>
+          <Text> Jolu19ac@student.cbs.dk</Text>
+        </View>
+        <View style={styles.body}>
+          <View style={styles.bodyContent}></View>
+        </View>
+      </ScrollView>
     </View>
   );
 };

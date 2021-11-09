@@ -28,6 +28,10 @@ import { Card } from "react-native-paper";
 import SignUpForm from "./Components/SignUpForm";
 import LoginForm from "./Components/LoginForm";
 
+// Imports for Camera Screen
+import CameraScreen from "./Components/Profile/CameraScreen";
+import ImageScreen from "./Components/Profile/ImageScreen";
+
 // Imports for TabNavigator - Chris
 import ProfileList from "./Components/ProfileList";
 import Add_edit_Profile from "./Components/Add_edit_Profile";
@@ -56,6 +60,7 @@ export default function App() {
 
   // Define user and setUser const, and the usestate to be false by default - Chris
   const [user, setUser] = useState({ loggedIn: false });
+  const [profiled, setProfiled] = useState({ created: false });
 
   // Define const for stacknavigator and bottomnavigator - Chris
   const Stack = createStackNavigator();
@@ -119,7 +124,36 @@ export default function App() {
     );
   };
 
-  const PublicStackNavigation = () => {
+  const ProfilePage = ({ navigation }) => {
+    return (
+      <View style={styles.container}>
+        <MyProfile />
+        <Button
+          onPress={() => navigation.navigate("Camera Page")}
+          title="CAM"
+        />
+      </View>
+    );
+  };
+
+  const CameraPage = () => {
+    return (
+      <View style={styles.container}>
+        <CameraScreen />
+      </View>
+    );
+  };
+
+  const ProfileStackNavigation = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name={"Profile Page"} component={ProfilePage} />
+        <Stack.Screen name={"Camera Page"} component={CameraPage} />
+      </Stack.Navigator>
+    );
+  };
+
+  const LoginStackNavigation = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen name={"Welcome Page"} component={GuestPage} />
@@ -147,8 +181,11 @@ export default function App() {
       <Tab.Navigator>
         <Tab.Screen
           name={"My Profile"}
-          component={MyProfile}
-          options={{ tabBarIcon: () => <Ionicons name="home" size={20} /> }}
+          component={ProfileStackNavigation}
+          options={{
+            tabBarIcon: () => <Ionicons name="home" size={20} />,
+            headerShown: null,
+          }}
         />
         <Tab.Screen
           name={"Groups"}
@@ -167,7 +204,7 @@ export default function App() {
     </NavigationContainer>
   ) : (
     <NavigationContainer>
-      <PublicStackNavigation />
+      <LoginStackNavigation />
     </NavigationContainer>
   );
 }
