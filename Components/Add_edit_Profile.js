@@ -1,4 +1,4 @@
-// Imports - Chris
+/*// Imports - Chris
 import React from "react";
 import {
   View,
@@ -143,3 +143,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+*/

@@ -28,7 +28,7 @@ const ProfileList = ({ navigation }) => {
 
   // If there is not profiles then display message - Chris
   if (!profiles) {
-    return <Text>Loading... or Database is empty</Text>;
+    return <Text>Loading... or Database is empty </Text>;
   }
 
   // We search in the array for profiles and find the profile object that matches the id we sendt with - Chris

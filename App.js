@@ -25,8 +25,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 // Imports for Login Screen - Chris
 import { useState } from "react";
 import { Card } from "react-native-paper";
-import SignUpForm from "./Components/SignUpForm";
-import LoginForm from "./Components/LoginForm";
+import SignUpForm from "./Components/LoginCreate/SignUpForm";
+import LoginForm from "./Components/LoginCreate/LoginForm";
 
 // Imports for Camera Screen
 import CameraScreen from "./Components/Profile/CameraScreen";
