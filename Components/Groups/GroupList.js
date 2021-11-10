@@ -53,26 +53,26 @@ const GroupList = ({ navigation, route }) => {
   return (
     <View>
       <Button
-                onPress={() => routeGroup()}
-                title="+"
-                color="#00cc00"
-                align="right"
-                style={styles.but}
-              />
-    <FlatList
-      data={groupArray}
-      keyExtractor={( item, index) => groupKeys[index]}
-      renderItem={({ item, index }) => {
-        return (
-          <TouchableOpacity
-            style={styles.container}
-            onPress={() => handleSelectGroup(groupKeys[index])}
-          >
-            <Text>{item.GroupName}</Text>
-          </TouchableOpacity>
-        );
-      }}
-    />
+        onPress={() => routeGroup()}
+        title="+"
+        color="#00cc00"
+        align="right"
+        style={styles.but}
+      />
+      <FlatList
+        data={groupArray}
+        keyExtractor={(item, index) => groupKeys[index]}
+        renderItem={({ item, index }) => {
+          return (
+            <TouchableOpacity
+              style={styles.container}
+              onPress={() => handleSelectGroup(groupKeys[index])}
+            >
+              <Text>{item.GroupName}</Text>
+            </TouchableOpacity>
+          );
+        }}
+      />
     </View>
   );
 };
@@ -92,8 +92,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   label: { fontWeight: "bold" },
-  but: {
-  },
-},
-
-);
+  but: {},
+});

@@ -9,26 +9,25 @@ import {
   Alert,
   ScrollView,
   SafeAreaView,
-  Picker
+  Picker,
 } from "react-native";
 import firebase from "firebase";
 import { useEffect, useState } from "react";
 
 // Defining the component that is later exported to App.js - Chris
 const Add_edit_Group = ({ navigation, route }) => {
-
   const Picker = () => {
     const [selectedValue, setSelectedValue] = useState("Studie");
     return (
       <View style={styles.picker}>
-      <Picker
-        selectedValue={selectedValue}
-        style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-      >
-        <Picker.Item label="Studie" value="Studie" />
-        <Picker.Item label="Night out" value="nightout" />
-      </Picker>
+        <Picker
+          selectedValue={selectedValue}
+          style={{ height: 50, width: 150 }}
+          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        >
+          <Picker.Item label="Studie" value="Studie" />
+          <Picker.Item label="Night out" value="nightout" />
+        </Picker>
       </View>
     );
   };
@@ -38,7 +37,7 @@ const Add_edit_Group = ({ navigation, route }) => {
     GroupName: "",
     Description: "",
     StudyProgramme: "",
-    GroupType: {Picker},
+    GroupType: { Picker },
     ContactInfo: "",
   };
 
@@ -67,7 +66,8 @@ const Add_edit_Group = ({ navigation, route }) => {
 
   // this function handles save, and checks that the elements within the array are not empty - Chris
   const handleSave = () => {
-    const { GroupName, Description, StudyProgramme, GroupType, ContactInfo } = newGroup;
+    const { GroupName, Description, StudyProgramme, GroupType, ContactInfo } =
+      newGroup;
 
     if (
       GroupName.length === 0 ||
@@ -87,7 +87,13 @@ const Add_edit_Group = ({ navigation, route }) => {
           .database()
           .ref(`/groups/${id}`)
           // Vi bruger update, så kun de felter vi angiver, bliver ændret
-          .update({ GroupName, Description, StudyProgramme, GroupType, ContactInfo });
+          .update({
+            GroupName,
+            Description,
+            StudyProgramme,
+            GroupType,
+            ContactInfo,
+          });
         // Når bilen er ændret, går vi tilbage.
         Alert.alert("Din info er nu opdateret");
         const group = [id, newGroup];
@@ -102,7 +108,13 @@ const Add_edit_Group = ({ navigation, route }) => {
         firebase
           .database()
           .ref("/groups/")
-          .push({ GroupName, Description, StudyProgramme, GroupType, ContactInfo });
+          .push({
+            GroupName,
+            Description,
+            StudyProgramme,
+            GroupType,
+            ContactInfo,
+          });
         Alert.alert(`Saved`);
         setnewGroup(initialState);
       } catch (error) {
@@ -161,6 +173,6 @@ const styles = StyleSheet.create({
   picker: {
     flex: 1,
     paddingTop: 40,
-    alignItems: "center"
+    alignItems: "center",
   },
 });
