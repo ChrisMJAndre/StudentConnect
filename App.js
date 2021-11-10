@@ -142,6 +142,29 @@ export default function App() {
     );
   };
 
+  /*
+
+  const GroupListPage = ({ navigation }) => {
+    return (
+      <View style={styles.container}>
+        <Button
+          onPress={() => navigation.navigate("Add Group")}
+          title="Add Group"
+        />
+        <GroupList />
+      </View>
+    );
+  };
+
+  const AddGroupPage = () => {
+    return (
+      <View style={styles.container}>
+        <Add_edit_Group />
+      </View>
+    );
+  };
+  */
+
   const ProfileStackNavigation = () => {
     return (
       <Stack.Navigator>
@@ -164,14 +187,25 @@ export default function App() {
   const StackNavigation = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name={"SearchGroupList"} component={GroupList} />
+        <Stack.Screen name={"Group List"} component={GroupList} />
         <Stack.Screen name={"GroupDetails"} component={GroupDetails} />
-        <Stack.Screen name={"EditGroup"} component={Add_edit_Group} />
+        <Stack.Screen name={"Add Group"} component={Add_edit_Group} />
         <Stack.Screen name={"Create Account Page"} component={SignUpForm} />
       </Stack.Navigator>
     );
   };
 
+  /*
+  const GroupStackNavigation = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name={"Group List"} component={GroupListPage} />
+        <Stack.Screen name={"Add Group Page"} component={Add_edit_Group} />
+      </Stack.Navigator>
+    );
+  };
+
+  */
   // If the user is logged in he/she should se the navigation container which has the bottom navigator so that the user can tab between them - Chris
   // If not logged in the user should be thrown back to the Guest Page where they can sign up or log in - Chris
   return user.loggedIn ? (
