@@ -6,7 +6,6 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
-  Button,
 } from "react-native";
 import firebase from "firebase";
 import { useEffect, useState } from "react";
