@@ -16,21 +16,7 @@ import { useEffect, useState } from "react";
 
 // Defining the component that is later exported to App.js - Chris
 const Add_edit_Group = ({ navigation, route }) => {
-  const Picker = () => {
-    const [selectedValue, setSelectedValue] = useState("Studie");
-    return (
-      <View style={styles.picker}>
-        <Picker
-          selectedValue={selectedValue}
-          style={{ height: 50, width: 150 }}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-        >
-          <Picker.Item label="Studie" value="Studie" />
-          <Picker.Item label="Night out" value="nightout" />
-        </Picker>
-      </View>
-    );
-  };
+  const [selectedValue, setSelectedValue] = useState("Studie");
 
   // Defining the initial state of the array that contains information about the user - Chris
   const initialState = {
@@ -105,16 +91,13 @@ const Add_edit_Group = ({ navigation, route }) => {
     // If the profile does not exist we should create it - Chris
     else {
       try {
-        firebase
-          .database()
-          .ref("/groups/")
-          .push({
-            GroupName,
-            Description,
-            StudyProgramme,
-            GroupType,
-            ContactInfo,
-          });
+        firebase.database().ref("/groups/").push({
+          GroupName,
+          Description,
+          StudyProgramme,
+          GroupType,
+          ContactInfo,
+        });
         Alert.alert(`Saved`);
         setnewGroup(initialState);
       } catch (error) {
@@ -146,6 +129,21 @@ const Add_edit_Group = ({ navigation, route }) => {
     </SafeAreaView>
   );
 };
+
+/*
+<View style={styles.picker}>
+                <Picker
+                  selectedValue={selectedValue}
+                  style={{ height: 50, width: 150 }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setSelectedValue(itemValue)
+                  }
+                >
+                  <Picker.Item label="Studie" value="Studie" />
+                  <Picker.Item label="Night out" value="nightout" />
+                </Picker>
+              </View>
+              */
 
 // Export the function - Chris
 export default Add_edit_Group;
