@@ -33,9 +33,7 @@ import CameraScreen from "./Components/Profile/CameraScreen";
 import ImageScreen from "./Components/Profile/ImageScreen";
 
 // Imports for TabNavigator - Chris
-import ProfileList from "./Components/ProfileList";
-import Add_edit_Profile from "./Components/Add_edit_Profile";
-import ProfileDetails from "./Components/ProfileDetails";
+
 import MyProfile from "./Components/Profile/MyProfile";
 import Add_edit_Group from "./Components/Groups/Add_edit_Group";
 import GroupList from "./Components/Groups/GroupList";
