@@ -17,7 +17,6 @@ import { useEffect, useState } from "react";
 // Defining the component that is later exported to App.js - Chris
 const Add_edit_Group = ({ navigation, route }) => {
   const [selectedValue, setSelectedValue] = useState("Studie");
-
   // Defining the initial state of the array that contains information about the user - Chris
   const initialState = {
     GroupName: "",
@@ -31,7 +30,7 @@ const Add_edit_Group = ({ navigation, route }) => {
   const [newGroup, setnewGroup] = useState(initialState);
 
   // This statement should return true if we are in Edit Profile - Chris
-  const isEditGroup = route.name === "EditGroup";
+  const isEditGroup = route.params.item === "EditGroup";
 
   // If it is true we should store the params in const profile  - Chris
   useEffect(() => {

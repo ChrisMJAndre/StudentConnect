@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 //import { useHistory } from "react-router-dom";
 
 // Define component - Chris
-const GroupList = ({ navigation, route }) => {
+const GroupList = ({ navigation }) => {
   const [groups, setgroups] = useState();
 
   // We snapshot the profiles defined - Chris - read up on what a snapshot is- Chris
@@ -37,7 +37,8 @@ const GroupList = ({ navigation, route }) => {
     const group = Object.entries(groups).find(
       (group) => group[0] === id /*id*/
     );
-    navigation.navigate("GroupDetails", { group });
+
+    navigation.navigate("Group Details", { group });
   };
 
   // Flatlist expects an array. Therefore we take all our values from our profile object and use an array for the list - Chris

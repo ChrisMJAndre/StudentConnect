@@ -146,11 +146,13 @@ export default function App() {
     return (
       <View>
         <Button
-          onPress={() => navigation.navigate("Add Group")}
+          onPress={() =>
+            navigation.navigate("Add / Edit Group", { item: "Add Group" })
+          }
           title="+"
           align="right"
         />
-        <GroupList />
+        <GroupList navigation={navigation} />
       </View>
     );
   };
@@ -174,13 +176,12 @@ export default function App() {
   };
 
   // Defining the stacknavigation previously defined. Name defined and what component it should link to - Chris
-  const StackNavigation = () => {
+  const GroupStackNavigation = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen name={"Group List"} component={GroupListPage} />
-        <Stack.Screen name={"GroupDetails"} component={GroupDetails} />
-        <Stack.Screen name={"Add Group"} component={Add_edit_Group} />
-        <Stack.Screen name={"Create Account Page"} component={SignUpForm} />
+        <Stack.Screen name={"Group Details"} component={GroupDetails} />
+        <Stack.Screen name={"Add / Edit Group"} component={Add_edit_Group} />
       </Stack.Navigator>
     );
   };
@@ -211,7 +212,7 @@ export default function App() {
         />
         <Tab.Screen
           name={"Groups"}
-          component={StackNavigation}
+          component={GroupStackNavigation}
           options={{
             tabBarIcon: () => <Ionicons name="search" size={20} />,
             headerShown: null,

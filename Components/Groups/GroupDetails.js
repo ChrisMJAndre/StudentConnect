@@ -29,7 +29,10 @@ const GroupDetails = ({ route, navigation }) => {
   // We navigate to the editprofile view and send the object with - Chris
   const handleEdit = () => {
     const group = route.params.group;
-    navigation.navigate("EditGroup", { group });
+    navigation.navigate("Add / Edit Group", {
+      item: "EditGroup",
+      group: group,
+    });
   };
 
   // We ask the user for confirmation - Chris
