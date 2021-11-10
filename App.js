@@ -142,28 +142,18 @@ export default function App() {
     );
   };
 
-  /*
-
   const GroupListPage = ({ navigation }) => {
     return (
-      <View style={styles.container}>
+      <View>
         <Button
           onPress={() => navigation.navigate("Add Group")}
-          title="Add Group"
+          title="+"
+          align="right"
         />
         <GroupList />
       </View>
     );
   };
-
-  const AddGroupPage = () => {
-    return (
-      <View style={styles.container}>
-        <Add_edit_Group />
-      </View>
-    );
-  };
-  */
 
   const ProfileStackNavigation = () => {
     return (
@@ -187,7 +177,7 @@ export default function App() {
   const StackNavigation = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name={"Group List"} component={GroupList} />
+        <Stack.Screen name={"Group List"} component={GroupListPage} />
         <Stack.Screen name={"GroupDetails"} component={GroupDetails} />
         <Stack.Screen name={"Add Group"} component={Add_edit_Group} />
         <Stack.Screen name={"Create Account Page"} component={SignUpForm} />

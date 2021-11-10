@@ -45,20 +45,9 @@ const GroupList = ({ navigation, route }) => {
   const groupArray = Object.values(groups);
   const groupKeys = Object.keys(groups);
 
-  const routeGroup = () => {
-    navigation.navigate("EditGroup");
-  };
-
   // We use profileKeys to find the ID of the profile and return it as a key - Chris
   return (
     <View>
-      <Button
-        onPress={() => routeGroup()}
-        title="+"
-        color="#00cc00"
-        align="right"
-        style={styles.but}
-      />
       <FlatList
         data={groupArray}
         keyExtractor={(item, index) => groupKeys[index]}
