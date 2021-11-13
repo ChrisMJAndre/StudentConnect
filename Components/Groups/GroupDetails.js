@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 const GroupDetails = ({ route, navigation }) => {
   const [group, setgroup] = useState({});
 
-  // Fetches the profiles values and set them - Chris
+  // Fetches the Groups values and set them - Chris
   useEffect(() => {
     setgroup(route.params.group[1]);
 
@@ -26,12 +26,12 @@ const GroupDetails = ({ route, navigation }) => {
     };
   });
 
-  // We navigate to the editprofile view and send the object with - Chris
+  // We navigate to the editGroup view and send the object with - Chris
   const handleEdit = () => {
     const group = route.params.group;
     navigation.navigate("Add / Edit Group", {
-      item: "EditGroup",
       group: group,
+      item: "EditGroup",
     });
   };
 
@@ -53,7 +53,7 @@ const GroupDetails = ({ route, navigation }) => {
     try {
       firebase
         .database()
-        // The profiles ID is used - Chris
+        // The Groups ID is used - Chris
         .ref(`/groups/${id}`)
         // Remove the data - Chris
         .remove();
@@ -76,9 +76,9 @@ const GroupDetails = ({ route, navigation }) => {
       {Object.entries(group).map((item, index) => {
         return (
           <View style={styles.row} key={index}>
-            {/*Profile key Names* /}
+            {/*Group key Names* /}
             <Text style={styles.label}>{item[0]} </Text>
-            {/*Profile value names */}
+            {/*Group value names */}
             <Text style={styles.value}>{item[1]}</Text>
           </View>
         );

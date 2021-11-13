@@ -26,13 +26,13 @@ const Add_edit_Group = ({ navigation, route }) => {
     ContactInfo: "",
   };
 
-  // Defining newprofile and its state - Chris
+  // Defining newGroup and its state - Chris
   const [newGroup, setnewGroup] = useState(initialState);
 
-  // This statement should return true if we are in Edit Profile - Chris
+  // This statement should return true if we are in Edit Group - Chris
   const isEditGroup = route.params.item === "EditGroup";
 
-  // If it is true we should store the params in const profile  - Chris
+  // If it is true we should store the params in const Group  - Chris
   useEffect(() => {
     if (isEditGroup) {
       const group = route.params.group[1];
@@ -64,7 +64,7 @@ const Add_edit_Group = ({ navigation, route }) => {
       return Alert.alert("Et af felterne er tomme!");
     }
 
-    // We save the new values in the database and redirect to profileDetails - Chris
+    // We save the new values in the database and redirect to GroupDetails - Chris
     if (isEditGroup) {
       const id = route.params.group[0];
       try {
@@ -87,7 +87,7 @@ const Add_edit_Group = ({ navigation, route }) => {
         console.log(`Error: ${error.message}`);
       }
     }
-    // If the profile does not exist we should create it - Chris
+    // If the Group does not exist we should create it - Chris
     else {
       try {
         firebase.database().ref("/groups/").push({

@@ -17,3 +17,18 @@ god dag
 
 
 Sker der
+
+
+
+<View style={styles.container}>
+      {Object.entries(Profiles).map((item, index) => {
+        return (
+          <View style={styles.row} key={index}>
+            {/*Profile key Names* /}
+          <Text style={styles.label}>{item[0]} </Text>
+          {/*Profile value names */}
+          <Text style={styles.value}>{item[1]}</Text>
+          </View>
+        );
+      })}
+    </View>

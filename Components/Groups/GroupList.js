@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 const GroupList = ({ navigation }) => {
   const [groups, setgroups] = useState();
 
-  // We snapshot the profiles defined - Chris - read up on what a snapshot is- Chris
+  // We snapshot the groups defined - Chris - read up on what a snapshot is- Chris
   useEffect(() => {
     if (!groups) {
       firebase
@@ -27,12 +27,12 @@ const GroupList = ({ navigation }) => {
     }
   }, []);
 
-  // If there is not profiles then display message - Chris
+  // If there is not groups then display message - Chris
   if (!groups) {
     return <Text>Loading... or Database is empty</Text>;
   }
 
-  // We search in the array for profiles and find the profile object that matches the id we sendt with - Chris
+  // We search in the array for groups and find the group object that matches the id we sendt with - Chris
   const handleSelectGroup = (id) => {
     const group = Object.entries(groups).find(
       (group) => group[0] === id /*id*/
@@ -41,11 +41,11 @@ const GroupList = ({ navigation }) => {
     navigation.navigate("Group Details", { group });
   };
 
-  // Flatlist expects an array. Therefore we take all our values from our profile object and use an array for the list - Chris
+  // Flatlist expects an array. Therefore we take all our values from our group object and use an array for the list - Chris
   const groupArray = Object.values(groups);
   const groupKeys = Object.keys(groups);
 
-  // We use profileKeys to find the ID of the profile and return it as a key - Chris
+  // We use groupKeys to find the ID of the group and return it as a key - Chris
   return (
     <View>
       <FlatList

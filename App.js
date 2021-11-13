@@ -13,6 +13,12 @@ console.warn = (message) => {
   }
 };
 
+// Import for SetProfileTest Screen
+import SetProfile from "./Components/Profile/SetProfile";
+
+// Import for ShowProfileTest Screen
+import ShowProfile from "./Components/Profile/ShowProfile";
+
 // Import of dependencies - Chris
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
@@ -222,6 +228,16 @@ export default function App() {
           name={"Events"}
           component={Add_edit_Group}
           options={{ tabBarIcon: () => <Ionicons name="search" size={20} /> }}
+        />
+        <Tab.Screen
+          name={"SETUP PROFILE TEST"}
+          component={SetProfile}
+          options={{ tabBarIcon: () => <Ionicons name="home" size={20} /> }}
+        />
+        <Tab.Screen
+          name={"SHOW PROFILE TEST"}
+          component={ShowProfile}
+          options={{ tabBarIcon: () => <Ionicons name="home" size={20} /> }}
         />
       </Tab.Navigator>
     </NavigationContainer>
