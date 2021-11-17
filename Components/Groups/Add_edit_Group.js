@@ -140,7 +140,7 @@ const Add_edit_Group = ({ navigation, route }) => {
                 >
                   <Picker.Item label="Vælg en af nedenstående" value="" />
                   <Picker.Item label="Studie" value="Studie" />
-                  <Picker.Item label="Night out" value="nightout" />
+                  <Picker.Item label="Night out" value="Nightout" />
                   <Picker.Item label="Social" value="Social" />
                 </Picker>
               </View>
