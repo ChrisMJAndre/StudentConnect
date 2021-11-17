@@ -88,7 +88,7 @@ const MyProfile = (props) => {
         </View>
         <View style={styles.card}>
           <Text style={styles.cardTittle}>Study Programme</Text>
-          <Text> {CurrentUserish.StydyProgramme} (HA.it)</Text>
+          <Text> {CurrentUserish.StudyProgramme}</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.cardTittle}>Phone Number</Text>
