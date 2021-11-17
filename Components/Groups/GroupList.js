@@ -48,7 +48,7 @@ const GroupList = ({ navigation }) => {
   // We use groupKeys to find the ID of the group and return it as a key - Chris
   // console.log(groupArray, "hele");
   const filter = groupArray.filter((item) => item.GroupType == "nightout");
-  console.log(filter, "filter");
+  //console.log(filter, "filter");
   return (
     <View>
       <FlatList
