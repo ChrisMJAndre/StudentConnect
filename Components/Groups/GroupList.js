@@ -52,7 +52,8 @@ const GroupList = ({ navigation }) => {
   return (
     <View>
       <FlatList
-        data={filter}
+        //data={filter}
+        data={groupArray}
         keyExtractor={(item, index) => groupKeys[index]}
         renderItem={({ item, index }) => {
           return (
