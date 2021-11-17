@@ -88,6 +88,8 @@ export default function App() {
     };
   }, []);
 
+  // DENNE KODE SKAL BRUGES TIL AT BESTEMME AT MAN SKAL SÆTTE EN PROFIL FØR MAN MÅ SE EN PROFIL
+  /*
   useEffect(() => {
     if (!Profiles) {
       firebase
@@ -109,11 +111,7 @@ export default function App() {
       setProfiled(isProfiledCreated);
     }
   }, [Profiles]);
-  /*
-<Card style={{ padding: 20 }}>
-          <SignUpForm />
-        </Card>
-*/
+ */
 
   // Defing the GuestPage where you can sign up or log in and link to the two corresponding components - Chris
   const GuestPage = ({ navigation }) => {
@@ -224,10 +222,10 @@ export default function App() {
   */
   // If the user is logged in he/she should se the navigation container which has the bottom navigator so that the user can tab between them - Chris
   // If not logged in the user should be thrown back to the Guest Page where they can sign up or log in - Chris
-  return user.loggedIn ? (
-    <NavigationContainer>
-      <Tab.Navigator>
-        {!profiled ? (
+
+  // DENNE KODE SKAL ERSTATTE TAB SCREEN FOR MY PROFILE NÅR DEN VIRKER
+  /*
+  {!profiled ? (
           <Tab.Screen
             name={"SETUP PROFILE TEST"}
             component={SetProfile}
@@ -243,6 +241,19 @@ export default function App() {
             }}
           />
         )}
+        */
+
+  return user.loggedIn ? (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen
+          name={"My Profile"}
+          component={ProfileStackNavigation}
+          options={{
+            tabBarIcon: () => <Ionicons name="home" size={20} />,
+            headerShown: null,
+          }}
+        />
         <Tab.Screen
           name={"Groups"}
           component={GroupStackNavigation}
