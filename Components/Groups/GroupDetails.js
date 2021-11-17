@@ -76,9 +76,7 @@ const GroupDetails = ({ route, navigation }) => {
       {Object.entries(group).map((item, index) => {
         return (
           <View style={styles.row} key={index}>
-            {/*Group key Names* /}
             <Text style={styles.label}>{item[0]} </Text>
-            {/*Group value names */}
             <Text style={styles.value}>{item[1]}</Text>
           </View>
         );

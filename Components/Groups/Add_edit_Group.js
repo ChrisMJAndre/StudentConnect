@@ -16,14 +16,14 @@ import { useEffect, useState } from "react";
 
 // Defining the component that is later exported to App.js - Chris
 const Add_edit_Group = ({ navigation, route }) => {
-  const [selectedValue, setSelectedValue] = useState("Studie");
+  const [selectedValue, setSelectedValue] = useState("");
   // Defining the initial state of the array that contains information about the user - Chris
   const initialState = {
     GroupName: "",
     Description: "",
-    StudyProgramme: "",
-    GroupType: { Picker },
+    Programme: "",
     ContactInfo: "",
+    GroupType: "",
   };
 
   // Defining newGroup and its state - Chris
@@ -49,15 +49,22 @@ const Add_edit_Group = ({ navigation, route }) => {
     setnewGroup({ ...newGroup, [name]: event });
   };
 
+  const setPicker = (name, event) => {
+    setSelectedValue(event);
+    setnewGroup({ ...newGroup, [name]: event });
+  };
+
   // this function handles save, and checks that the elements within the array are not empty - Chris
   const handleSave = () => {
-    const { GroupName, Description, StudyProgramme, GroupType, ContactInfo } =
+    console.log(selectedValue);
+    console.log(selectedValue);
+    const { GroupName, Description, Programme, ContactInfo, GroupType } =
       newGroup;
 
     if (
       GroupName.length === 0 ||
       Description.length === 0 ||
-      StudyProgramme.length === 0 ||
+      Programme.length === 0 ||
       GroupType.length === 0 ||
       ContactInfo.length === 0
     ) {
@@ -75,9 +82,9 @@ const Add_edit_Group = ({ navigation, route }) => {
           .update({
             GroupName,
             Description,
-            StudyProgramme,
-            GroupType,
+            Programme,
             ContactInfo,
+            GroupType,
           });
         // Når bilen er ændret, går vi tilbage.
         Alert.alert("Din info er nu opdateret");
@@ -93,12 +100,13 @@ const Add_edit_Group = ({ navigation, route }) => {
         firebase.database().ref("/groups/").push({
           GroupName,
           Description,
-          StudyProgramme,
-          GroupType,
+          Programme,
           ContactInfo,
+          GroupType,
         });
         Alert.alert(`Saved`);
         setnewGroup(initialState);
+        navigation.navigate("Group List");
       } catch (error) {
         console.log(`Error: ${error.message}`);
       }
@@ -109,16 +117,34 @@ const Add_edit_Group = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         {Object.keys(initialState).map((key, index) => {
-          return (
-            <View style={styles.row} key={index}>
-              <Text style={styles.label}>{key}</Text>
-              <TextInput
-                value={newGroup[key].toString()}
-                onChangeText={(event) => changeTextInput(key, event)}
-                style={styles.input}
-              />
-            </View>
-          );
+          if (key !== "GroupType") {
+            return (
+              <View style={styles.row} key={index}>
+                <Text style={styles.label}>{key}</Text>
+                <TextInput
+                  value={newGroup[key].toString()}
+                  onChangeText={(event) => changeTextInput(key, event)}
+                  style={styles.input}
+                />
+              </View>
+            );
+          } else
+            return (
+              <View key={key}>
+                <Picker
+                  selectedValue={selectedValue}
+                  style={{ height: 50, width: 150 }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setPicker("GroupType", itemValue.toString())
+                  }
+                >
+                  <Picker.Item label="Vælg en af nedenstående" value="" />
+                  <Picker.Item label="Studie" value="Studie" />
+                  <Picker.Item label="Night out" value="nightout" />
+                  <Picker.Item label="Social" value="Social" />
+                </Picker>
+              </View>
+            );
         })}
         <Button
           title={isEditGroup ? "Save changes" : "Add group"}
@@ -128,21 +154,6 @@ const Add_edit_Group = ({ navigation, route }) => {
     </SafeAreaView>
   );
 };
-
-/*
-<View style={styles.picker}>
-                <Picker
-                  selectedValue={selectedValue}
-                  style={{ height: 50, width: 150 }}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setSelectedValue(itemValue)
-                  }
-                >
-                  <Picker.Item label="Studie" value="Studie" />
-                  <Picker.Item label="Night out" value="nightout" />
-                </Picker>
-              </View>
-              */
 
 // Export the function - Chris
 export default Add_edit_Group;

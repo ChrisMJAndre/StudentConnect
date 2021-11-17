@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 
-import ShowProfile from "./ShowProfile";
+import { useEffect, useState } from "react";
 
 //Imports for Camera
 import { createStackNavigator } from "@react-navigation/stack";
@@ -22,6 +22,7 @@ import ImageScreen from "./ImageScreen";
 //KOMMENTER NEDENSTÅNDE UD, HVIS DU ØNSKER AT TILBAGEFØRE GAMMELT PROFIL-VIEW
 
 const MyProfile = (props) => {
+  const [Profiles, setProfiles] = useState();
   const handleLogOut = async () => {
     await firebase.auth().signOut();
   };
@@ -32,6 +33,25 @@ const MyProfile = (props) => {
       </View>
     );
   }
+  /*
+  // We snapshot the profiles defined - Chris - read up on what a snapshot is- Chris
+  useEffect(() => {
+    if (!Profiles) {
+      firebase
+        .database()
+        .ref(`/testProfile`)
+        .on("value", (snapshot) => {
+          setProfiles(snapshot.val());
+        });
+    }
+  }, []);
+
+  const currentEmail = firebase.auth().currentUser.email;
+
+  const CurrentUserish = Object.values(Profiles).filter(
+    (Item) => Item.Email.toString() == currentEmail
+  )[0];
+*/
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -44,7 +64,7 @@ const MyProfile = (props) => {
               }}
             />
 
-            <Text style={styles.name}>{firebase.auth().currentUser.email}</Text>
+            <Text style={styles.name}>{"0"}</Text>
             <Button onPress={() => handleLogOut()} title="Log out" />
             <Text style={styles.info}>
               Student at Copenhagen Business School
