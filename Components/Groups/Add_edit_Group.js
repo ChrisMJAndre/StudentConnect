@@ -82,7 +82,7 @@ const Add_edit_Group = ({ navigation, route }) => {
         // Når bilen er ændret, går vi tilbage.
         Alert.alert("Din info er nu opdateret");
         const group = [id, newGroup];
-        navigation.navigate("GroupDetails", { group });
+        navigation.navigate("Group Details", { group });
       } catch (error) {
         console.log(`Error: ${error.message}`);
       }
@@ -113,7 +113,7 @@ const Add_edit_Group = ({ navigation, route }) => {
             <View style={styles.row} key={index}>
               <Text style={styles.label}>{key}</Text>
               <TextInput
-                value={newGroup[key]}
+                value={newGroup[key].toString()}
                 onChangeText={(event) => changeTextInput(key, event)}
                 style={styles.input}
               />

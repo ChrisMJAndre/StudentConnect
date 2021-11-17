@@ -9,6 +9,8 @@ import {
   ScrollView,
 } from "react-native";
 
+import ShowProfile from "./ShowProfile";
+
 //Imports for Camera
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -33,7 +35,7 @@ const MyProfile = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.header}>
+        <View>
           <View style={styles.headerContent}>
             <Image
               style={styles.avatar}
@@ -80,9 +82,6 @@ const MyProfile = (props) => {
 export default MyProfile;
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#00BFFF",
-  },
   headerContent: {
     padding: 30,
     alignItems: "center",
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 22,
-    color: "#FFFFFF",
+    color: "#00BFFF",
     fontWeight: "600",
   },
   bodyContent: {

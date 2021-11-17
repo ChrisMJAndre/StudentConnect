@@ -52,17 +52,21 @@ const ShowProfile = ({ navigation }) => {
   });
   // Maybe this is useless
 
-  // Logs the email of the current user
-  console.log(firebase.auth().currentUser.email);
+  const currentEmail = firebase.auth().currentUser.email;
 
-  //console.log(Profiles);
+  // Logs the email of the current user
+  console.log(currentEmail);
+
+  const CurrentUserish = Object.values(Profiles).filter(
+    (Item) => Item.Email.toString() == currentEmail
+  )[0];
   //data = JSON.stringify(Profiles);
   //console.log(data);
 
   // We use profileKeys to find the ID of the profile and return it as a key - Chris
   return (
     <View style={styles.container}>
-      <Text> </Text>
+      <Text>{CurrentUserish.Email}</Text>
     </View>
   );
 };
