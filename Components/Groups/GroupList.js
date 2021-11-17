@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Button,
 } from "react-native";
 import firebase from "firebase";
 import { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ import { useEffect, useState } from "react";
 // Define component - Chris
 const GroupList = ({ navigation }) => {
   const [groups, setgroups] = useState();
+  const [filterKey, setFilterKey] = useState(null);
 
   // We snapshot the groups defined - Chris - read up on what a snapshot is- Chris
   useEffect(() => {
@@ -41,19 +43,32 @@ const GroupList = ({ navigation }) => {
     navigation.navigate("Group Details", { group });
   };
 
+  const handleToggle = (key) => {
+    setFilterKey(key);
+  };
+
   // Flatlist expects an array. Therefore we take all our values from our group object and use an array for the list - Chris
   const groupArray = Object.values(groups);
   const groupKeys = Object.keys(groups);
 
   // We use groupKeys to find the ID of the group and return it as a key - Chris
   // console.log(groupArray, "hele");
-  const filter = groupArray.filter((item) => item.GroupType == "nightout");
-  //console.log(filter, "filter");
+
+  const filter = filterKey
+    ? groupArray.filter((item) => item.GroupType == filterKey)
+    : groupArray;
+
   return (
     <View>
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <Button onPress={() => handleToggle(null)} title={"All"} />
+        <Button onPress={() => handleToggle("Study")} title={"Study"} />
+        <Button onPress={() => handleToggle("Nightout")} title={"Nightout"} />
+        <Button onPress={() => handleToggle("Social")} title={"Social"} />
+      </View>
       <FlatList
         //data={filter}
-        data={groupArray}
+        data={filter}
         keyExtractor={(item, index) => groupKeys[index]}
         renderItem={({ item, index }) => {
           return (
@@ -83,7 +98,12 @@ const styles = StyleSheet.create({
     padding: 5,
     height: 50,
     justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
   },
   label: { fontWeight: "bold" },
   but: {},
+  buttonContainer: {
+    flex: 1,
+  },
 });
