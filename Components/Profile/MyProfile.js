@@ -22,19 +22,10 @@ import ImageScreen from "./ImageScreen";
 //KOMMENTER NEDENSTÅNDE UD, HVIS DU ØNSKER AT TILBAGEFØRE GAMMELT PROFIL-VIEW
 
 const MyProfile = (props) => {
-  const [Profiles, setProfiles] = useState();
-  const handleLogOut = async () => {
-    await firebase.auth().signOut();
-  };
-  if (!firebase.auth().currentUser) {
-    return (
-      <View>
-        <Text>Not found</Text>
-      </View>
-    );
-  }
-  /*
   // We snapshot the profiles defined - Chris - read up on what a snapshot is- Chris
+
+  const [Profiles, setProfiles] = useState();
+
   useEffect(() => {
     if (!Profiles) {
       firebase
@@ -46,12 +37,28 @@ const MyProfile = (props) => {
     }
   }, []);
 
+  const handleLogOut = async () => {
+    await firebase.auth().signOut();
+  };
+
+  if (!firebase.auth().currentUser) {
+    return (
+      <View>
+        <Text>Not found</Text>
+      </View>
+    );
+  }
+
   const currentEmail = firebase.auth().currentUser.email;
 
-  const CurrentUserish = Object.values(Profiles).filter(
-    (Item) => Item.Email.toString() == currentEmail
-  )[0];
-*/
+  // Logs the email of the current user
+
+  const CurrentUserish = Profiles
+    ? Object.values(Profiles).filter(
+        (Item) => Item.Email.toString() == currentEmail
+      )[0]
+    : {};
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -64,7 +71,7 @@ const MyProfile = (props) => {
               }}
             />
 
-            <Text style={styles.name}>{"0"}</Text>
+            <Text style={styles.name}>{CurrentUserish.Name}</Text>
             <Button onPress={() => handleLogOut()} title="Log out" />
             <Text style={styles.info}>
               Student at Copenhagen Business School
@@ -73,23 +80,23 @@ const MyProfile = (props) => {
         </View>
         <View style={styles.card}>
           <Text style={styles.cardTittle}>Name</Text>
-          <Text> Johan Isak Fink Lundtoft</Text>
+          <Text> {CurrentUserish.Name}</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.cardTittle}>Date of Birth</Text>
-          <Text> 27 / 06 - 1998</Text>
+          <Text> {CurrentUserish.DateOfBirth} </Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.cardTittle}>Study Programme</Text>
-          <Text> Erhvervsøkonomi og IT (HA.it)</Text>
+          <Text> {CurrentUserish.StydyProgramme} (HA.it)</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.cardTittle}>Phone Number</Text>
-          <Text> +45 60 25 04 44</Text>
+          <Text> {CurrentUserish.PhoneNumber} </Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.cardTittle}>Email</Text>
-          <Text> Jolu19ac@student.cbs.dk</Text>
+          <Text> {CurrentUserish.Email} </Text>
         </View>
         <View style={styles.body}>
           <View style={styles.bodyContent}></View>
