@@ -12,8 +12,8 @@ import firebase from "firebase";
 
 // Define function and their constant that can be altered, aswell as their initial state - Chris
 function LoginForm() {
-  const [email, setEmail] = useState("christopher@andre.bz");
-  const [password, setPassword] = useState("Chris123");
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [isCompleted, setCompleted] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
