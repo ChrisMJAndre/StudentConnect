@@ -38,9 +38,15 @@ import ImageScreen from "./Components/Profile/ImageScreen";
 // Imports for TabNavigator - Chris
 
 import MyProfile from "./Components/Profile/MyProfile";
+// Group imports
 import Add_edit_Group from "./Components/Groups/Add_edit_Group";
 import GroupList from "./Components/Groups/GroupList";
 import GroupDetails from "./Components/Groups/GroupDetails";
+
+// Event imports
+import Add_edit_Event from "./Components/Events/Add_edit_Events";
+import EventList from "./Components/Events/EventList";
+import EventDetails from "./Components/Events/EventDetails";
 
 // Here the code of App.js starts with the start of function App - Chris
 export default function App() {
@@ -98,7 +104,7 @@ export default function App() {
         .on("value", (snapshot) => {
           setProfiles(snapshot.val());
         });
-    }
+    } 
   }, []);
 
   useEffect(() => {
@@ -180,6 +186,21 @@ export default function App() {
     );
   };
 
+  const EventListPage = ({ navigation }) => {
+    return (
+      <View>
+        <Button
+          onPress={() =>
+            navigation.navigate("Add / Edit Event", { item: "Add Event" })
+          }
+          title="+"
+          align="right"
+        />
+        <EventList navigation={navigation} />
+      </View>
+    );
+  };
+
   const ProfileStackNavigation = () => {
     return (
       <Stack.Navigator>
@@ -205,6 +226,16 @@ export default function App() {
         <Stack.Screen name={"Group List"} component={GroupListPage} />
         <Stack.Screen name={"Group Details"} component={GroupDetails} />
         <Stack.Screen name={"Add / Edit Group"} component={Add_edit_Group} />
+      </Stack.Navigator>
+    );
+  };
+
+  const EventStackNavigation = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name={"Event List"} component={EventListPage} />
+        <Stack.Screen name={"Event Details"} component={EventDetails} />
+        <Stack.Screen name={"Add / Edit Event"} component={Add_edit_Event} />
       </Stack.Navigator>
     );
   };
@@ -264,8 +295,11 @@ export default function App() {
         />
         <Tab.Screen
           name={"Events"}
-          component={Add_edit_Group}
-          options={{ tabBarIcon: () => <Ionicons name="search" size={20} /> }}
+          component={EventStackNavigation}
+          options={{
+            tabBarIcon: () => <Ionicons name="search" size={20} />,
+            headerShown: null,
+          }}
         />
       </Tab.Navigator>
     </NavigationContainer>

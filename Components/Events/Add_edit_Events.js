@@ -15,96 +15,116 @@ import firebase from "firebase";
 import { useEffect, useState } from "react";
 
 // Defining the component that is later exported to App.js - Chris
-const Add_edit_Group = ({ navigation, route }) => {
+const Add_edit_Event = ({ navigation, route }) => {
   const [selectedValue, setSelectedValue] = useState("");
   // Defining the initial state of the array that contains information about the user - Chris
   const initialState = {
-    GroupName: "",
+    EventName: "",
+    DateOfEvent: "",
+    Time: "",
     Description: "",
+    Group: "",
     Programme: "",
     ContactInfo: "",
-    GroupType: "",
+    EventType: "",
   };
 
-  // Defining newGroup and its state - Chris
-  const [newGroup, setnewGroup] = useState(initialState);
+  // Defining newEvent and its state - Chris
+  const [newEvent, setnewEvent] = useState(initialState);
 
-  // This statement should return true if we are in Edit Group - Chris
-  const isEditGroup = route.params.item === "EditGroup";
+  // This statement should return true if we are in Edit Event - Chris
+  const isEditEvent = route.params.item === "EditEvent";
 
-  // If it is true we should store the params in const Group  - Chris
+  // If it is true we should store the params in const Event  - Chris
   useEffect(() => {
-    if (isEditGroup) {
-      const group = route.params.group[1];
-      setnewGroup(group);
+    if (isEditEvent) {
+      const event = route.params.event[1];
+      setnewEvent(event);
     }
     // Remove the data when we leave the view - Chris
     return () => {
-      setnewGroup(initialState);
+      setnewEvent(initialState);
     };
   }, []);
 
   //
   const changeTextInput = (name, event) => {
-    setnewGroup({ ...newGroup, [name]: event });
+    setnewEvent({ ...newEvent, [name]: event });
   };
 
   const setPicker = (name, event) => {
     setSelectedValue(event);
-    setnewGroup({ ...newGroup, [name]: event });
+    setnewEvent({ ...newEvent, [name]: event });
   };
 
   // this function handles save, and checks that the elements within the array are not empty - Chris
   const handleSave = () => {
-    const { GroupName, Description, Programme, ContactInfo, GroupType } =
-      newGroup;
+    const {
+      EventName,
+      DateOfEvent,
+      Time,
+      Description,
+      Group,
+      Programme,
+      ContactInfo,
+      EventType,
+    } = newEvent;
 
     if (
-      GroupName.length === 0 ||
+      EventName.length === 0 ||
+      DateOfEvent.length === 0 ||
+      Time.length === 0 ||
       Description.length === 0 ||
+      Group.length === 0 ||
       Programme.length === 0 ||
-      GroupType.length === 0 ||
+      EventType.length === 0 ||
       ContactInfo.length === 0
     ) {
       return Alert.alert("Et af felterne er tomme!");
     }
 
-    // We save the new values in the database and redirect to GroupDetails - Chris
-    if (isEditGroup) {
-      const id = route.params.group[0];
+    // We save the new values in the database and redirect to EventDetails - Chris
+    if (isEditEvent) {
+      const id = route.params.event[0];
       try {
         firebase
           .database()
-          .ref(`/groups/${id}`)
+          .ref(`/events/${id}`)
           // Vi bruger update, så kun de felter vi angiver, bliver ændret
           .update({
-            GroupName,
+            EventName,
+            DateOfEvent,
+            Time,
             Description,
+            Group,
             Programme,
             ContactInfo,
-            GroupType,
+            EventType,
           });
         // Når bilen er ændret, går vi tilbage.
         Alert.alert("Din info er nu opdateret");
-        const group = [id, newGroup];
-        navigation.navigate("Group Details", { group });
+        const event = [id, newEvent];
+        navigation.navigate("Event Details", { event });
       } catch (error) {
         console.log(`Error: ${error.message}`);
       }
     }
-    // If the Group does not exist we should create it - Chris
+    // If the Event does not exist we should create it - Chris
     else {
       try {
-        firebase.database().ref("/groups/").push({
-          GroupName,
+        firebase.database().ref("/events/").push({
+          EventName,
+          DateOfEvent,
+          Time,
           Description,
+          Group,
           Programme,
           ContactInfo,
-          GroupType,
+          EventType,
         });
         Alert.alert(`Saved`);
-        setnewGroup(initialState);
-        navigation.navigate("Group List");
+        setnewEvent(initialState);
+        navigation.navigate("Event List");
       } catch (error) {
         console.log(`Error: ${error.message}`);
       }
@@ -115,12 +135,12 @@ const Add_edit_Group = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         {Object.keys(initialState).map((key, index) => {
-          if (key !== "GroupType") {
+          if (key !== "EventType") {
             return (
               <View style={styles.row} key={index}>
                 <Text style={styles.label}>{key}</Text>
                 <TextInput
-                  value={newGroup[key].toString()}
+                  value={newEvent[key].toString()}
                   onChangeText={(event) => changeTextInput(key, event)}
                   style={styles.input}
                 />
@@ -133,7 +153,7 @@ const Add_edit_Group = ({ navigation, route }) => {
                   selectedValue={selectedValue}
                   style={{ height: 50, width: 150 }}
                   onValueChange={(itemValue, itemIndex) =>
-                    setPicker("GroupType", itemValue.toString())
+                    setPicker("EventType", itemValue.toString())
                   }
                 >
                   <Picker.Item label="Vælg en af nedenstående" value="" />
@@ -145,7 +165,7 @@ const Add_edit_Group = ({ navigation, route }) => {
             );
         })}
         <Button
-          title={isEditGroup ? "Save changes" : "Add group"}
+          title={isEditEvent ? "Save changes" : "Add event"}
           onPress={() => handleSave()}
         />
       </ScrollView>
@@ -154,7 +174,7 @@ const Add_edit_Group = ({ navigation, route }) => {
 };
 
 // Export the function - Chris
-export default Add_edit_Group;
+export default Add_edit_Event;
 
 // Styles - Chris
 const styles = StyleSheet.create({
