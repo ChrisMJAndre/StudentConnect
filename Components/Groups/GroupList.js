@@ -60,7 +60,7 @@ const GroupList = ({ navigation }) => {
 
   return (
     <View>
-      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+      <View style={styles.filter}>
         <Button onPress={() => handleToggle(null)} title={"All"} />
         <Button onPress={() => handleToggle("Study")} title={"Study"} />
         <Button onPress={() => handleToggle("Nightout")} title={"Nightout"} />
@@ -105,5 +105,10 @@ const styles = StyleSheet.create({
   but: {},
   buttonContainer: {
     flex: 1,
+  },
+  filter: {
+    flexDirection: "row",
+    justifyContent: "center",
+    borderColor: "#FF0000",
   },
 });
