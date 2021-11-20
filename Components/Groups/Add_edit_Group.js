@@ -24,6 +24,7 @@ const Add_edit_Group = ({ navigation, route }) => {
     Programme: "",
     ContactInfo: "",
     GroupType: "",
+    Members: "",
   };
 
   // Defining newGroup and its state - Chris
@@ -56,8 +57,14 @@ const Add_edit_Group = ({ navigation, route }) => {
 
   // this function handles save, and checks that the elements within the array are not empty - Chris
   const handleSave = () => {
-    const { GroupName, Description, Programme, ContactInfo, GroupType } =
-      newGroup;
+    const {
+      GroupName,
+      Description,
+      Programme,
+      ContactInfo,
+      GroupType,
+      Members,
+    } = newGroup;
 
     if (
       GroupName.length === 0 ||
@@ -83,6 +90,7 @@ const Add_edit_Group = ({ navigation, route }) => {
             Programme,
             ContactInfo,
             GroupType,
+            Members,
           });
         // Når bilen er ændret, går vi tilbage.
         Alert.alert("Din info er nu opdateret");
@@ -101,6 +109,7 @@ const Add_edit_Group = ({ navigation, route }) => {
           Programme,
           ContactInfo,
           GroupType,
+          Members,
         });
         Alert.alert(`Saved`);
         setnewGroup(initialState);

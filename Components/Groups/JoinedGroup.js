@@ -13,10 +13,8 @@ import { useEffect, useState } from "react";
 //import { useHistory } from "react-router-dom";
 
 // Define component - Chris
-const GroupList = ({ navigation }) => {
+const JoinedGroup = ({ navigation }) => {
   const [groups, setgroups] = useState();
-  const [filterKey, setFilterKey] = useState(null);
-  const [JoinedKey, setJoinedKey] = useState(null);
 
   // We snapshot the groups defined - Chris - read up on what a snapshot is- Chris
   useEffect(() => {
@@ -41,15 +39,7 @@ const GroupList = ({ navigation }) => {
       (group) => group[0] === id /*id*/
     );
 
-    navigation.navigate("Group Details", { group });
-  };
-
-  const handleToggle = (key) => {
-    setFilterKey(key);
-  };
-
-  const handleToggleJoined = (key) => {
-    setJoinedKey(key);
+    navigation.navigate("Show Joined Groups", { group });
   };
 
   // Flatlist expects an array. Therefore we take all our values from our group object and use an array for the list - Chris
@@ -58,28 +48,16 @@ const GroupList = ({ navigation }) => {
 
   // We use groupKeys to find the ID of the group and return it as a key - Chris
   // console.log(groupArray, "hele");
-
-  const filter = filterKey
-    ? groupArray.filter((item) => item.GroupType == filterKey)
-    : groupArray;
-
-  const joinedGroup = JoinedKey
-    ? groupArray.joinedGroup((item) => item.Members == JoinedKey)
-    : groupArray;
-
   const CurrUser = firebase.auth().currentUser.email;
+
+  const joinedGroupFilter = groupArray.filter(
+    (item) => item.Members == CurrUser
+  );
 
   return (
     <View>
-      <View style={styles.filter}>
-        <Button onPress={() => handleToggle(null)} title={"All"} />
-        <Button onPress={() => handleToggle("Study")} title={"Study"} />
-        <Button onPress={() => handleToggle("Nightout")} title={"Nightout"} />
-        <Button onPress={() => handleToggle("Social")} title={"Social"} />
-      </View>
       <FlatList
-        //data={filter}
-        data={filter}
+        data={joinedGroupFilter}
         keyExtractor={(item, index) => groupKeys[index]}
         renderItem={({ item, index }) => {
           return (
@@ -97,7 +75,7 @@ const GroupList = ({ navigation }) => {
 };
 
 // Export component - Chris
-export default GroupList;
+export default JoinedGroup;
 
 // Styles - Chris
 const styles = StyleSheet.create({

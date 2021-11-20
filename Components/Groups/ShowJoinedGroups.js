@@ -13,7 +13,7 @@ import firebase from "firebase";
 import { useEffect, useState } from "react";
 
 // Define the Component functionality- Chris
-const GroupDetails = ({ route, navigation }) => {
+const ShowJoinedGroups = ({ route, navigation }) => {
   const [group, setgroup] = useState({});
 
   // Fetches the Groups values and set them - Chris
@@ -25,44 +25,6 @@ const GroupDetails = ({ route, navigation }) => {
       setgroup({});
     };
   });
-
-  // We navigate to the editGroup view and send the object with - Chris
-  const handleEdit = () => {
-    const group = route.params.group;
-    navigation.navigate("Add / Edit Group", {
-      group: group,
-      item: "EditGroup",
-    });
-  };
-
-  // We ask the user for confirmation - Chris
-  const confirmDelete = () => {
-    // which OS is used? in this case we ask if it is mobile - Chris
-    if (Platform.OS === "ios" || Platform.OS === "android") {
-      Alert.alert("Are you sure?", "Do you want to delete the group?", [
-        { text: "Cancel", style: "cancel" },
-        // If yes, then trigger handleDelete function - Chris
-        { text: "Delete", style: "destructive", onPress: () => handleDelete() },
-      ]);
-    }
-  };
-
-  // We Delete the car using firebase methods - Chris
-  const handleDelete = () => {
-    const id = route.params.group[0];
-    try {
-      firebase
-        .database()
-        // The Groups ID is used - Chris
-        .ref(`/groups/${id}`)
-        // Remove the data - Chris
-        .remove();
-      // And navigate back- Chris
-      navigation.goBack();
-    } catch (error) {
-      Alert.alert(error.message);
-    }
-  };
 
   if (!group) {
     return <Text>No data</Text>;
@@ -87,8 +49,7 @@ const GroupDetails = ({ route, navigation }) => {
     };
   }, []);
 
-  const handleJoinGroup = () => {
-    CurrUserMail = firebase.auth().currentUser.email;
+  const handleLeaveGroup = () => {
     const { Members } = newGroup;
 
     // We save the new values in the database and redirect to GroupDetails - Chris
@@ -99,10 +60,10 @@ const GroupDetails = ({ route, navigation }) => {
         .ref(`/groups/${id}`)
         // Vi bruger update, så kun de felter vi angiver, bliver ændret
         .update({
-          Members: CurrUserMail,
+          Members: "",
         });
       // Når bilen er ændret, går vi tilbage.
-      Alert.alert("Group Joined!");
+      Alert.alert("You have leaved the Group");
       const group = [id, newGroup];
       navigation.navigate("Group List", { group });
     } catch (error) {
@@ -113,8 +74,6 @@ const GroupDetails = ({ route, navigation }) => {
   //All content rendered - Chris
   return (
     <View style={styles.container}>
-      <Button title="Edit" onPress={() => handleEdit()} />
-      <Button title="Delete" onPress={() => confirmDelete()} />
       {Object.entries(group).map((item, index) => {
         return (
           <View style={styles.row} key={index}>
@@ -123,13 +82,13 @@ const GroupDetails = ({ route, navigation }) => {
           </View>
         );
       })}
-      <Button title="Join Group" onPress={() => handleJoinGroup()} />
+      <Button title="Leave Group" onPress={() => handleLeaveGroup()} />
     </View>
   );
 };
 
 // Export component - Chris
-export default GroupDetails;
+export default ShowJoinedGroups;
 
 // Styles - Chris
 const styles = StyleSheet.create({

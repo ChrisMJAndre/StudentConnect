@@ -47,6 +47,8 @@ import GroupDetails from "./Components/Groups/GroupDetails";
 import Add_edit_Event from "./Components/Events/Add_edit_Events";
 import EventList from "./Components/Events/EventList";
 import EventDetails from "./Components/Events/EventDetails";
+import joinedGroup from "./Components/Groups/JoinedGroup";
+import ShowJoinedGroups from "./Components/Groups/ShowJoinedGroups";
 
 // Here the code of App.js starts with the start of function App - Chris
 export default function App() {
@@ -181,6 +183,11 @@ export default function App() {
           title="+"
           align="right"
         />
+        <Button
+          onPress={() => navigation.navigate("Joined Group")}
+          title="Joined Groups"
+          align="right"
+        />
         <GroupList navigation={navigation} />
       </View>
     );
@@ -226,6 +233,11 @@ export default function App() {
         <Stack.Screen name={"Group List"} component={GroupListPage} />
         <Stack.Screen name={"Group Details"} component={GroupDetails} />
         <Stack.Screen name={"Add / Edit Group"} component={Add_edit_Group} />
+        <Stack.Screen name={"Joined Group"} component={joinedGroup} />
+        <Stack.Screen
+          name={"Show Joined Groups"}
+          component={ShowJoinedGroups}
+        />
       </Stack.Navigator>
     );
   };
