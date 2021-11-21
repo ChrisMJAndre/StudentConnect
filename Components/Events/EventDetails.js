@@ -1,4 +1,4 @@
-// Imports - Chris
+// Imports
 import React from "react";
 import {
   View,
@@ -12,8 +12,9 @@ import {
 import firebase from "firebase";
 import { useEffect, useState } from "react";
 
-// Define the Component functionality- Chris
+// Define the Component functionality
 const EventDetails = ({ route, navigation }) => {
+  // Setting useState for event to be an empty array
   const [event, setevent] = useState({});
 
   // Fetches the events values and set them - Chris
@@ -29,9 +30,9 @@ const EventDetails = ({ route, navigation }) => {
   // We navigate to the editevent view and send the object with - Chris
   const handleEdit = () => {
     const event = route.params.event;
-    navigation.navigate("Add / Edit event", {
+    navigation.navigate("Add / Edit Event", {
       event: event,
-      item: "Editevent",
+      item: "EditEvent",
     });
   };
 
@@ -64,6 +65,7 @@ const EventDetails = ({ route, navigation }) => {
     }
   };
 
+  // If there are no created events, we should render that there is no data
   if (!event) {
     return <Text>No data</Text>;
   }

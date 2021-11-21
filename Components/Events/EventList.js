@@ -10,14 +10,13 @@ import {
 } from "react-native";
 import firebase from "firebase";
 import { useEffect, useState } from "react";
-//import { useHistory } from "react-router-dom";
 
-// Define component - Chris
+// Define component that is later exported to app.js - Chris
 const EventList = ({ navigation }) => {
   const [events, setevents] = useState();
   const [filterKey, setFilterKey] = useState(null);
 
-  // We snapshot the events defined - Chris - read up on what a snapshot is- Chris
+  // We snapshot the events defined - Chris
   useEffect(() => {
     if (!events) {
       firebase
@@ -67,7 +66,6 @@ const EventList = ({ navigation }) => {
         <Button onPress={() => handleToggle("Social")} title={"Social"} />
       </View>
       <FlatList
-        //data={filter}
         data={filter}
         keyExtractor={(item, index) => eventKeys[index]}
         renderItem={({ item, index }) => {

@@ -87,8 +87,9 @@ const GroupDetails = ({ route, navigation }) => {
     };
   }, []);
 
+  // Function that allows a user to join a group by pushing their email to the group
   const handleJoinGroup = () => {
-    CurrUserMail = firebase.auth().currentUser.email;
+    const CurrUserMail = firebase.auth().currentUser.email;
     const { Members } = newGroup;
 
     // We save the new values in the database and redirect to GroupDetails - Chris
@@ -97,11 +98,11 @@ const GroupDetails = ({ route, navigation }) => {
       firebase
         .database()
         .ref(`/groups/${id}`)
-        // Vi bruger update, så kun de felter vi angiver, bliver ændret
+        // We use update to update the firebase database
         .update({
           Members: CurrUserMail,
         });
-      // Når bilen er ændret, går vi tilbage.
+      // When group is altered, we return to group list view
       Alert.alert("Group Joined!");
       const group = [id, newGroup];
       navigation.navigate("Group List", { group });

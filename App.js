@@ -159,7 +159,7 @@ export default function App() {
         <MyProfile />
         <Button
           onPress={() => navigation.navigate("Camera Page")}
-          title="CAM"
+          title="Camera"
         />
       </View>
     );

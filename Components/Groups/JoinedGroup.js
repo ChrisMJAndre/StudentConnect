@@ -46,12 +46,8 @@ const JoinedGroup = ({ navigation }) => {
   const groupArray = Object.values(groups);
   const groupKeys = Object.keys(groups);
 
-  // We use groupKeys to find the ID of the group and return it as a key - Chris
-  // console.log(groupArray, "hele");
-  const CurrUser = firebase.auth().currentUser.email;
-
   const joinedGroupFilter = groupArray.filter(
-    (item) => item.Members == CurrUser
+    (item) => item.Members == firebase.auth().currentUser.email
   );
 
   return (

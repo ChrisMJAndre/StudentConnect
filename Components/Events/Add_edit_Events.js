@@ -1,4 +1,4 @@
-// Imports - Chris
+// Imports
 import React from "react";
 import {
   View,
@@ -14,10 +14,12 @@ import {
 import firebase from "firebase";
 import { useEffect, useState } from "react";
 
-// Defining the component that is later exported to App.js - Chris
+// Defining the component that is later exported to App.js
 const Add_edit_Event = ({ navigation, route }) => {
+  // Setting useState for the picker
   const [selectedValue, setSelectedValue] = useState("");
-  // Defining the initial state of the array that contains information about the user - Chris
+
+  // Defining the initial state of the array that contains information about the Event
   const initialState = {
     EventName: "",
     DateOfEvent: "",
@@ -29,36 +31,38 @@ const Add_edit_Event = ({ navigation, route }) => {
     EventType: "",
   };
 
-  // Defining newEvent and its state - Chris
+  // Defining newEvent and its state
   const [newEvent, setnewEvent] = useState(initialState);
 
-  // This statement should return true if we are in Edit Event - Chris
+  // This statement should return true if we are in Edit Event
   const isEditEvent = route.params.item === "EditEvent";
 
-  // If it is true we should store the params in const Event  - Chris
+  // If it is true we should store the params in const Event
   useEffect(() => {
     if (isEditEvent) {
       const event = route.params.event[1];
       setnewEvent(event);
     }
-    // Remove the data when we leave the view - Chris
+    // Remove the data when we leave the view
     return () => {
       setnewEvent(initialState);
     };
   }, []);
 
-  //
+  // Read up on this!!!!
   const changeTextInput = (name, event) => {
     setnewEvent({ ...newEvent, [name]: event });
   };
 
+  // ALSO THIS!
   const setPicker = (name, event) => {
     setSelectedValue(event);
     setnewEvent({ ...newEvent, [name]: event });
   };
 
-  // this function handles save, and checks that the elements within the array are not empty - Chris
+  // this function handles save, and checks that the elements within the array are not empty
   const handleSave = () => {
+    // Defining initialstate of new event
     const {
       EventName,
       DateOfEvent,
@@ -70,6 +74,7 @@ const Add_edit_Event = ({ navigation, route }) => {
       EventType,
     } = newEvent;
 
+    // If statement that check so that none of the boxes are left empty else return an alert
     if (
       EventName.length === 0 ||
       DateOfEvent.length === 0 ||
@@ -83,7 +88,8 @@ const Add_edit_Event = ({ navigation, route }) => {
       return Alert.alert("Et af felterne er tomme!");
     }
 
-    // We save the new values in the database and redirect to EventDetails - Chris
+    // We save the new values in the database and redirect to EventDetails
+    // This runs if isEditEvent is true and we want to edit an event
     if (isEditEvent) {
       const id = route.params.event[0];
       try {
@@ -101,7 +107,8 @@ const Add_edit_Event = ({ navigation, route }) => {
             ContactInfo,
             EventType,
           });
-        // Når bilen er ændret, går vi tilbage.
+        // when the event is changed, return an alert
+        // then navigate back to event details
         Alert.alert("Din info er nu opdateret");
         const event = [id, newEvent];
         navigation.navigate("Event Details", { event });
@@ -109,7 +116,8 @@ const Add_edit_Event = ({ navigation, route }) => {
         console.log(`Error: ${error.message}`);
       }
     }
-    // If the Event does not exist we should create it - Chris
+    // If the Event does not exist we should create it
+    // meaning isEditEvent is false
     else {
       try {
         firebase.database().ref("/events/").push({
@@ -130,7 +138,8 @@ const Add_edit_Event = ({ navigation, route }) => {
       }
     }
   };
-  // JS POWERMOVE - read up on this more, i understand basics - Chris
+  // JS POWERMOVE - read up on this more, i understand basics
+  // See if we can learn more about this?!
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -165,6 +174,7 @@ const Add_edit_Event = ({ navigation, route }) => {
             );
         })}
         <Button
+          // Depending on the state of isEditEvent render the button to either of the two strings
           title={isEditEvent ? "Save changes" : "Add event"}
           onPress={() => handleSave()}
         />
