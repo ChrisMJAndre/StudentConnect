@@ -63,7 +63,7 @@ const ShowJoinedGroups = ({ route, navigation }) => {
           Members: "",
         });
       // Når bilen er ændret, går vi tilbage.
-      Alert.alert("You have leaved the Group");
+      Alert.alert("You have left the group");
       const group = [id, newGroup];
       navigation.navigate("Group List", { group });
     } catch (error) {

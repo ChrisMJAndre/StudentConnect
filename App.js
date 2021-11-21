@@ -1,7 +1,7 @@
 // Found this on website to remove an annoying yellow error message complaining about timeout
 // Error - Setting a timer for a long period of time, i.e. multiple minutes, is a performance and correctness issue on Android as it keeps the timer module awake,
 // and timers can only be called when the app is in the foreground. See https://github.com/facebook/react-native/issues/12981 for more info. (Saw setTimeout with duration 3299603ms)
-import { LogBox } from "react-native";
+import { Image, LogBox } from "react-native";
 import _ from "lodash";
 
 LogBox.ignoreLogs(["Warning:..."]); // ignore specific logs
@@ -28,6 +28,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 // Imports for Login Screen - Chris
 import { useState } from "react";
 import { Card } from "react-native-paper";
+
 import SignUpForm from "./Components/LoginCreate/SignUpForm";
 import LoginForm from "./Components/LoginCreate/LoginForm";
 
@@ -125,6 +126,10 @@ export default function App() {
   const GuestPage = ({ navigation }) => {
     return (
       <View style={styles.container}>
+        <Image
+          style={styles.avatar}
+          source={require("./assets/StudentConnectLogo.png")}
+        />
         <Text style={styles.paragraph}>Login with your Email</Text>
 
         <Card style={{ padding: 20 }}>
@@ -220,7 +225,13 @@ export default function App() {
   const LoginStackNavigation = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name={"Welcome Page"} component={GuestPage} />
+        <Stack.Screen
+          name={"Welcome Page"}
+          component={GuestPage}
+          options={{
+            headerShown: null,
+          }}
+        />
         <Stack.Screen name={"Create Account Page"} component={CreatePage} />
       </Stack.Navigator>
     );
@@ -336,5 +347,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  avatar: {
+    alignSelf: "center",
+    height: 120,
+    width: 120,
+    bottom: 80,
   },
 });
