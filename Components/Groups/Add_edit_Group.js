@@ -75,6 +75,7 @@ const Add_edit_Group = ({ navigation, route }) => {
     ) {
       return Alert.alert("Et af felterne er tomme!");
     }
+    const CurrentUserMember = firebase.auth().currentUser.email;
 
     // We save the new values in the database and redirect to GroupDetails - Chris
     if (isEditGroup) {
@@ -100,6 +101,7 @@ const Add_edit_Group = ({ navigation, route }) => {
         console.log(`Error: ${error.message}`);
       }
     }
+
     // If the Group does not exist we should create it - Chris
     else {
       try {
@@ -109,7 +111,7 @@ const Add_edit_Group = ({ navigation, route }) => {
           Programme,
           ContactInfo,
           GroupType,
-          Members: firebase.auth().currentUser.email,
+          Members: CurrentUserMember,
         });
         Alert.alert(`Saved`);
         setnewGroup(initialState);
