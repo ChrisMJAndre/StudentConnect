@@ -48,10 +48,6 @@ const GroupList = ({ navigation }) => {
     setFilterKey(key);
   };
 
-  const handleToggleJoined = (key) => {
-    setJoinedKey(key);
-  };
-
   // Flatlist expects an array. Therefore we take all our values from our group object and use an array for the list - Chris
   const groupArray = Object.values(groups);
   const groupKeys = Object.keys(groups);
@@ -62,12 +58,6 @@ const GroupList = ({ navigation }) => {
   const filter = filterKey
     ? groupArray.filter((item) => item.GroupType == filterKey)
     : groupArray;
-
-  const joinedGroup = JoinedKey
-    ? groupArray.joinedGroup((item) => item.Members == JoinedKey)
-    : groupArray;
-
-  const CurrUser = firebase.auth().currentUser.email;
 
   return (
     <View>
