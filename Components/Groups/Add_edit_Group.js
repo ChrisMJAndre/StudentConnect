@@ -109,7 +109,7 @@ const Add_edit_Group = ({ navigation, route }) => {
           Programme,
           ContactInfo,
           GroupType,
-          Members,
+          Members: firebase.auth().currentUser.email,
         });
         Alert.alert(`Saved`);
         setnewGroup(initialState);
