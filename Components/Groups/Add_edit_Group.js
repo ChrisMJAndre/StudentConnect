@@ -158,6 +158,7 @@ const Add_edit_Group = ({ navigation, route }) => {
         <Button
           title={isEditGroup ? "Save changes" : "Add group"}
           onPress={() => handleSave()}
+          color="#3F5992"
         />
       </ScrollView>
     </SafeAreaView>

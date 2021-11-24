@@ -177,6 +177,7 @@ const Add_edit_Event = ({ navigation, route }) => {
           // Depending on the state of isEditEvent render the button to either of the two strings
           title={isEditEvent ? "Save changes" : "Add event"}
           onPress={() => handleSave()}
+          color="#3F5992"
         />
       </ScrollView>
     </SafeAreaView>

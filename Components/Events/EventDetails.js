@@ -73,8 +73,8 @@ const EventDetails = ({ route, navigation }) => {
   //All content rendered - Chris
   return (
     <View style={styles.container}>
-      <Button title="Edit" onPress={() => handleEdit()} />
-      <Button title="Delete" onPress={() => confirmDelete()} />
+      <Button title="Edit" onPress={() => handleEdit()} color="#3F5992" />
+      <Button title="Delete" onPress={() => confirmDelete()} color="#3F5992" />
       {Object.entries(event).map((item, index) => {
         return (
           <View style={styles.row} key={index}>

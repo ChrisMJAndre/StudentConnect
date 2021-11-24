@@ -139,6 +139,7 @@ export default function App() {
           <Button
             onPress={() => navigation.navigate("Create Account Page")}
             title="Create Account"
+            color="#3F5992"
           />
         </Card>
       </View>
@@ -164,6 +165,7 @@ export default function App() {
         <Button
           onPress={() => navigation.navigate("Camera Page")}
           title="Camera"
+          color="#3F5992"
         />
       </View>
     );
@@ -184,13 +186,15 @@ export default function App() {
           onPress={() =>
             navigation.navigate("Add / Edit Group", { item: "Add Group" })
           }
-          title="+"
+          title="Create Group"
           align="right"
+          color="#3F5992"
         />
         <Button
           onPress={() => navigation.navigate("Joined Group")}
           title="Joined Groups"
           align="right"
+          color="#3F5992"
         />
         <GroupList navigation={navigation} />
       </View>
@@ -204,8 +208,9 @@ export default function App() {
           onPress={() =>
             navigation.navigate("Add / Edit Event", { item: "Add Event" })
           }
-          title="+"
+          title="Create Event"
           align="right"
+          color="#3F5992"
         />
         <EventList navigation={navigation} />
       </View>
