@@ -40,7 +40,7 @@ const GroupList = ({ navigation }) => {
     const group = Object.entries(groups).find(
       (group) => group[0] === id /*id*/
     );
-
+    console.log(group);
     navigation.navigate("Group Details", { group });
   };
 
@@ -68,7 +68,6 @@ const GroupList = ({ navigation }) => {
         <Button onPress={() => handleToggle("Social")} title={"Social"} />
       </View>
       <FlatList
-        //data={filter}
         data={filter}
         keyExtractor={(item, index) => groupKeys[index]}
         renderItem={({ item, index }) => {
