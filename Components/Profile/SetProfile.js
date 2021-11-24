@@ -86,6 +86,7 @@ function SetProfile() {
         <Button
           title={"Create Profile"}
           onPress={() => handleSubmitProfile()}
+          color={"#3F5992"}
         />
       </ScrollView>
     </SafeAreaView>
