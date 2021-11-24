@@ -33,11 +33,27 @@ const EventList = ({ navigation }) => {
     return <Text>Loading... or Database is empty</Text>;
   }
 
+  let filteredEvent = {};
+
+  // loops based on filter key which equals the key we want to show in list
+  filterKey
+    ? Object.entries(events).map((event) => {
+        return (
+          event[1].EventType == filterKey &&
+          Object.assign(filteredEvent, { [event[0]]: event[1] })
+        );
+      })
+    : (filteredEvent = events);
+
+  const eventArray = Object.values(filteredEvent);
+  const eventKeys = Object.keys(filteredEvent);
+
   // We search in the array for events and find the event object that matches the id we sendt with - Chris
   const handleSelectEvent = (id) => {
     const event = Object.entries(events).find(
       (event) => event[0] === id /*id*/
     );
+    console.log(event, "event");
 
     navigation.navigate("Event Details", { event });
   };
@@ -45,17 +61,6 @@ const EventList = ({ navigation }) => {
   const handleToggle = (key) => {
     setFilterKey(key);
   };
-
-  // Flatlist expects an array. Therefore we take all our values from our event object and use an array for the list - Chris
-  const eventArray = Object.values(events);
-  const eventKeys = Object.keys(events);
-
-  // We use eventKeys to find the ID of the event and return it as a key - Chris
-  // console.log(eventArray, "hele");
-
-  const filter = filterKey
-    ? eventArray.filter((item) => item.EventType == filterKey)
-    : eventArray;
 
   return (
     <View>
@@ -66,7 +71,7 @@ const EventList = ({ navigation }) => {
         <Button onPress={() => handleToggle("Social")} title={"Social"} />
       </View>
       <FlatList
-        data={filter}
+        data={eventArray}
         keyExtractor={(item, index) => eventKeys[index]}
         renderItem={({ item, index }) => {
           return (
@@ -98,20 +103,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: '#3F5992',
+    backgroundColor: "#3F5992",
     marginVertical: 20,
     marginHorizontal: 70,
-
   },
   label: { fontWeight: "bold" },
   but: {},
   buttonContainer: {
     flex: 1,
   },
-  title:{
-    textAlign: 'center',
+  title: {
+    textAlign: "center",
     marginVertical: 8,
-    color: '#F7F7F3',
-    fontSize:15,
-  }
+    color: "#F7F7F3",
+    fontSize: 15,
+  },
 });
