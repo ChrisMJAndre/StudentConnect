@@ -69,10 +69,10 @@ const GroupList = ({ navigation }) => {
   return (
     <View>
       <View style={styles.filter}>
-        <Button onPress={() => handleToggle(null)} title={"All"} />
-        <Button onPress={() => handleToggle("Study")} title={"Study"} />
-        <Button onPress={() => handleToggle("Nightout")} title={"Nightout"} />
-        <Button onPress={() => handleToggle("Social")} title={"Social"} />
+        <Button onPress={() => handleToggle(null)} title={"All"} color={"#3F5992"} />
+        <Button onPress={() => handleToggle("Study")} title={"Study"} color={"#3F5992"} />
+        <Button onPress={() => handleToggle("Nightout")} title={"Nightout"} color={"#3F5992"} />
+        <Button onPress={() => handleToggle("Social")} title={"Social"} color={"#3F5992"}/>
       </View>
       <FlatList
         data={groupArray}
@@ -86,7 +86,7 @@ const GroupList = ({ navigation }) => {
                 handleSelectGroup(groupKeys[index]);
               }}
             >
-              <Text>{item.GroupName}</Text>
+              <Text style={styles.title}>{item.GroupName}</Text>
             </TouchableOpacity>
           );
         }}
@@ -110,15 +110,31 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
+    backgroundColor: "#3F5992",
+    marginVertical: 5,
+    marginHorizontal: 70,
   },
   label: { fontWeight: "bold" },
   but: {},
   buttonContainer: {
     flex: 1,
   },
+  title: {
+    textAlign: "center",
+    marginVertical: 8,
+    color: "#F7F7F3",
+    fontSize: 15,
+  },
   filter: {
     flexDirection: "row",
     justifyContent: "center",
     borderColor: "#FF0000",
+    textAlign: "center",
+    marginVertical: 5,
+    color: "#F7F7F3",
+    fontSize: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    marginHorizontal: 10,
   },
 });
