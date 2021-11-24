@@ -64,12 +64,29 @@ const EventList = ({ navigation }) => {
 
   return (
     <View>
-      <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <Button onPress={() => handleToggle(null)} title={"All"} />
-        <Button onPress={() => handleToggle("Study")} title={"Study"} />
-        <Button onPress={() => handleToggle("Nightout")} title={"Nightout"} />
-        <Button onPress={() => handleToggle("Social")} title={"Social"} />
+      <View style={styles.buttonTitle}>
+        <Button
+          onPress={() => handleToggle(null)}
+          title={"All"}
+          color={"#3F5992"}
+        />
+        <Button
+          onPress={() => handleToggle("Study")}
+          title={"Study"}
+          color={"#3F5992"}
+        />
+        <Button
+          onPress={() => handleToggle("Nightout")}
+          title={"Nightout"}
+          color={"#3F5992"}
+        />
+        <Button
+          onPress={() => handleToggle("Social")}
+          title={"Social"}
+          color={"#3F5992"}
+        />
       </View>
+
       <FlatList
         data={eventArray}
         keyExtractor={(item, index) => eventKeys[index]}
@@ -117,5 +134,14 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     color: "#F7F7F3",
     fontSize: 15,
+  },
+  buttonTitle: {
+    textAlign: "center",
+    marginVertical: 10,
+    color: "#F7F7F3",
+    fontSize: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    marginHorizontal: 10,
   },
 });
