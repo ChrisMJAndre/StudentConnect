@@ -74,7 +74,7 @@ const EventList = ({ navigation }) => {
               style={styles.container}
               onPress={() => handleSelectEvent(eventKeys[index])}
             >
-              <Text>{item.EventName}</Text>
+              <Text style={styles.title}>{item.EventName}</Text>
             </TouchableOpacity>
           );
         }}
@@ -98,10 +98,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
+    backgroundColor: '#3F5992',
+    marginVertical: 20,
+    marginHorizontal: 70,
+
   },
   label: { fontWeight: "bold" },
   but: {},
   buttonContainer: {
     flex: 1,
   },
+  title:{
+    textAlign: 'center',
+    marginVertical: 8,
+    color: '#F7F7F3',
+    fontSize:15,
+  }
 });
