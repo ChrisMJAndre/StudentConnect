@@ -164,6 +164,7 @@ export default function App() {
         <Button
           onPress={() => navigation.navigate("Camera Page")}
           title="Camera"
+          color={"#3F5992"}
         />
       </View>
     );

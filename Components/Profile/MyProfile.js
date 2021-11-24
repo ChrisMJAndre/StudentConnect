@@ -67,12 +67,16 @@ const MyProfile = (props) => {
             <Image
               style={styles.avatar}
               source={{
-                uri: "https://i.imgur.com/HSfOA5y.jpg",
+                uri: "https://picsum.photos/200",
               }}
             />
 
-            <Text style={styles.name}>{CurrentUserish.Name}</Text>
-            <Button onPress={() => handleLogOut()} title="Log out" />
+            <Text style={styles.name1}>{CurrentUserish.Name}</Text>
+            <Button
+              onPress={() => handleLogOut()}
+              title="Log out"
+              color={"#3F5992"}
+            />
             <Text style={styles.info}>
               Student at Copenhagen Business School
             </Text>
@@ -138,6 +142,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "#00BFFF",
     fontWeight: "600",
+  },
+  name1: {
+    fontSize: 22,
+    color: "#00BFFF",
+    fontWeight: "600",
+    color: "#3F5992",
   },
   bodyContent: {
     flex: 1,
