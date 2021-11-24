@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     backgroundColor: "#3F5992",
-    marginVertical: 20,
+    marginVertical: 5,
     marginHorizontal: 70,
   },
   label: { fontWeight: "bold" },
