@@ -19,7 +19,7 @@ function SignUpForm() {
 
   // Simple button that activates handlesubmit when you want to signup - Chris
   const renderButton = () => {
-    return <Button onPress={() => handleSubmit()} title="Create User" />;
+    return <Button onPress={() => handleSubmit()} title="Create User" color="#3F5992"/>;
   };
 
   // Onpress button this actives. It checks if the email and password entered matches anything in the database - Chris

@@ -71,8 +71,12 @@ const MyProfile = (props) => {
               }}
             />
 
-            <Text style={styles.name}>{CurrentUserish.Name}</Text>
-            <Button onPress={() => handleLogOut()} title="Log out" />
+            <Text style={styles.nameTitle}>{CurrentUserish.Name}</Text>
+            <Button
+              onPress={() => handleLogOut()}
+              title="Log out"
+              color={"#3F5992"}
+            />
             <Text style={styles.info}>
               Student at Copenhagen Business School
             </Text>
@@ -138,6 +142,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "#00BFFF",
     fontWeight: "600",
+  },
+  nameTitle: {
+    fontSize: 22,
+    color: "#00BFFF",
+    fontWeight: "600",
+    color: "#3F5992",
   },
   bodyContent: {
     flex: 1,

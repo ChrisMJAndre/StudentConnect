@@ -19,7 +19,7 @@ function LoginForm() {
 
   // Simple button that activates handlesubmit when you want to login - Chris
   const renderButton = () => {
-    return <Button onPress={() => handleSubmit()} title="Login" />;
+    return <Button onPress={() => handleSubmit()} title="Login" color="#3F5992"/>;
   };
 
   // Onpress button this actives. It chekcs if the email and password entered matches anything in the database - Chris
