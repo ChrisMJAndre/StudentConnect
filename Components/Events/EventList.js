@@ -86,7 +86,7 @@ const EventList = ({ navigation }) => {
           color={"#3F5992"}
         />
       </View>
-
+      <Text title="Available Groups" style={styles.title} />
       <FlatList
         data={eventArray}
         keyExtractor={(item, index) => eventKeys[index]}
