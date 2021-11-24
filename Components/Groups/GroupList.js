@@ -34,13 +34,30 @@ const GroupList = ({ navigation }) => {
   if (!groups) {
     return <Text>Loading... or Database is empty</Text>;
   }
+  // Flatlist expects an array. Therefore we take all our values from our group object and use an array for the list - Chris
+
+  let filteredGroup = {};
+
+  // loops based on filter key which equals the key we want to show in list
+  filterKey
+    ? Object.entries(groups).map((group) => {
+        return (
+          group[1].GroupType == filterKey &&
+          Object.assign(filteredGroup, { [group[0]]: group[1] })
+        );
+      })
+    : (filteredGroup = groups);
+
+  const groupArray = Object.values(filteredGroup);
+  const groupKeys = Object.keys(filteredGroup);
 
   // We search in the array for groups and find the group object that matches the id we sendt with - Chris
   const handleSelectGroup = (id) => {
     const group = Object.entries(groups).find(
       (group) => group[0] === id /*id*/
     );
-    console.log(group);
+    console.log(group, "group");
+
     navigation.navigate("Group Details", { group });
   };
 
@@ -48,17 +65,7 @@ const GroupList = ({ navigation }) => {
     setFilterKey(key);
   };
 
-  // Flatlist expects an array. Therefore we take all our values from our group object and use an array for the list - Chris
-  const groupArray = Object.values(groups);
-  const groupKeys = Object.keys(groups);
-
-  // We use groupKeys to find the ID of the group and return it as a key - Chris
-  // console.log(groupArray, "hele");
-
-  const filter = filterKey
-    ? groupArray.filter((item) => item.GroupType == filterKey)
-    : groupArray;
-
+  console.log(groupArray, "filter");
   return (
     <View>
       <View style={styles.filter}>
@@ -68,13 +75,16 @@ const GroupList = ({ navigation }) => {
         <Button onPress={() => handleToggle("Social")} title={"Social"} />
       </View>
       <FlatList
-        data={filter}
+        data={groupArray}
         keyExtractor={(item, index) => groupKeys[index]}
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity
               style={styles.container}
-              onPress={() => handleSelectGroup(groupKeys[index])}
+              onPress={() => {
+                console.log(groups);
+                handleSelectGroup(groupKeys[index]);
+              }}
             >
               <Text>{item.GroupName}</Text>
             </TouchableOpacity>
