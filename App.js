@@ -50,7 +50,8 @@ import EventList from "./Components/Events/EventList";
 import EventDetails from "./Components/Events/EventDetails";
 import joinedGroup from "./Components/Groups/JoinedGroup";
 import ShowJoinedGroups from "./Components/Groups/ShowJoinedGroups";
-
+import JoinedEvent from "./Components/Events/JoinedEvent";
+import ShowJoinedEvents from "./Components/Events/ShowJoinedEvents";
 // Here the code of App.js starts with the start of function App - Chris
 export default function App() {
   // Firebase config file obtained from firebase.google.com - Chris
@@ -212,6 +213,12 @@ export default function App() {
           align="right"
           color="#3F5992"
         />
+        <Button
+          onPress={() => navigation.navigate("Joined Event")}
+          title="Joined Events"
+          align="right"
+          color="#3F5992"
+        />
         <EventList navigation={navigation} />
       </View>
     );
@@ -263,6 +270,11 @@ export default function App() {
         <Stack.Screen name={"Event List"} component={EventListPage} />
         <Stack.Screen name={"Event Details"} component={EventDetails} />
         <Stack.Screen name={"Add / Edit Event"} component={Add_edit_Event} />
+        <Stack.Screen name={"Joined Event"} component={JoinedEvent} />
+        <Stack.Screen
+          name={"Show Joined Events"}
+          component={ShowJoinedEvents}
+        />
       </Stack.Navigator>
     );
   };

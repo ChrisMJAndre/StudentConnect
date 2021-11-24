@@ -29,6 +29,7 @@ const Add_edit_Event = ({ navigation, route }) => {
     Programme: "",
     ContactInfo: "",
     EventType: "",
+    Members: "",
   };
 
   // Defining newEvent and its state
@@ -72,6 +73,7 @@ const Add_edit_Event = ({ navigation, route }) => {
       Programme,
       ContactInfo,
       EventType,
+      Members,
     } = newEvent;
 
     // If statement that check so that none of the boxes are left empty else return an alert
@@ -87,6 +89,8 @@ const Add_edit_Event = ({ navigation, route }) => {
     ) {
       return Alert.alert("Et af felterne er tomme!");
     }
+
+    const CurrentUserMember = firebase.auth().currentUser.email;
 
     // We save the new values in the database and redirect to EventDetails
     // This runs if isEditEvent is true and we want to edit an event
@@ -106,6 +110,7 @@ const Add_edit_Event = ({ navigation, route }) => {
             Programme,
             ContactInfo,
             EventType,
+            Members,
           });
         // when the event is changed, return an alert
         // then navigate back to event details
@@ -129,6 +134,7 @@ const Add_edit_Event = ({ navigation, route }) => {
           Programme,
           ContactInfo,
           EventType,
+          Members: CurrentUserMember,
         });
         Alert.alert(`Saved`);
         setnewEvent(initialState);
