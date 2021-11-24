@@ -263,17 +263,6 @@ export default function App() {
     );
   };
 
-  /*
-  const GroupStackNavigation = () => {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen name={"Group List"} component={GroupListPage} />
-        <Stack.Screen name={"Add Group Page"} component={Add_edit_Group} />
-      </Stack.Navigator>
-    );
-  };
-
-  */
   // If the user is logged in he/she should se the navigation container which has the bottom navigator so that the user can tab between them - Chris
   // If not logged in the user should be thrown back to the Guest Page where they can sign up or log in - Chris
 
