@@ -98,7 +98,7 @@ export default function App() {
   }, []);
 
   // DENNE KODE SKAL BRUGES TIL AT BESTEMME AT MAN SKAL SÆTTE EN PROFIL FØR MAN MÅ SE EN PROFIL
-  /*
+  // kunne godt tænke mig at smide disse to use effects ind i en if statement der tjekker om man er logget ind eller ej - if (user.loggedIn) {}
   useEffect(() => {
     if (!Profiles) {
       firebase
@@ -107,11 +107,11 @@ export default function App() {
         .on("value", (snapshot) => {
           setProfiles(snapshot.val());
         });
-    } 
+    }
   }, []);
 
   useEffect(() => {
-    if (Profiles) {
+    if (Profiles && firebase.auth().currentUser) {
       const isProfiledCreated =
         Object.values(Profiles).filter(
           (item) => item.Email == firebase.auth().currentUser.email
@@ -120,7 +120,6 @@ export default function App() {
       setProfiled(isProfiledCreated);
     }
   }, [Profiles]);
- */
 
   // Defing the GuestPage where you can sign up or log in and link to the two corresponding components - Chris
   const GuestPage = ({ navigation }) => {
@@ -289,14 +288,22 @@ export default function App() {
   return user.loggedIn ? (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen
-          name={"My Profile"}
-          component={ProfileStackNavigation}
-          options={{
-            tabBarIcon: () => <Ionicons name="home" size={20} />,
-            headerShown: null,
-          }}
-        />
+        {!profiled ? (
+          <Tab.Screen
+            name={"SETUP PROFILE TEST"}
+            component={SetProfile}
+            options={{ tabBarIcon: () => <Ionicons name="home" size={20} /> }}
+          />
+        ) : (
+          <Tab.Screen
+            name={"My Profile"}
+            component={ProfileStackNavigation}
+            options={{
+              tabBarIcon: () => <Ionicons name="home" size={20} />,
+              headerShown: null,
+            }}
+          />
+        )}
         <Tab.Screen
           name={"Groups"}
           component={GroupStackNavigation}
