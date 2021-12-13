@@ -67,6 +67,10 @@ function SetProfile() {
     setnewProfile(initialStateProfile);
   };
 
+  const handleLogOut = async () => {
+    await firebase.auth().signOut();
+  };
+
   // The Front end of the signup view - Chris
   return (
     <SafeAreaView style={styles.container}>
@@ -86,6 +90,11 @@ function SetProfile() {
         <Button
           title={"Create Profile"}
           onPress={() => handleSubmitProfile()}
+          color={"#3F5992"}
+        />
+        <Button
+          onPress={() => handleLogOut()}
+          title="Log out"
           color={"#3F5992"}
         />
       </ScrollView>

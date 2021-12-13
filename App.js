@@ -58,6 +58,7 @@ export default function App() {
   const firebaseConfig = {
     apiKey: "AIzaSyARPNCZdXnprC5WHf-rsPv4kEhnrVmuezM",
     authDomain: "examapp-77a38.firebaseapp.com",
+    databaseURL: "https://examapp-77a38-default-rtdb.firebaseio.com",
     projectId: "examapp-77a38",
     storageBucket: "examapp-77a38.appspot.com",
     messagingSenderId: "138974946795",
