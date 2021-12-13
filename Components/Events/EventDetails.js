@@ -1,4 +1,4 @@
-// Imports
+// React Imports
 import React from "react";
 import {
   View,
@@ -12,7 +12,7 @@ import {
 import firebase from "firebase";
 import { useEffect, useState } from "react";
 
-// Define the Component functionality
+// Defining the component that is later exported to App.js
 const EventDetails = ({ route, navigation }) => {
   // Setting useState for event to be an empty array
   const [event, setevent] = useState({});
@@ -21,13 +21,14 @@ const EventDetails = ({ route, navigation }) => {
   useEffect(() => {
     setevent(route.params.event[1]);
 
-    // When we leave the view, empty the object - Chris
+    // When we leave the view, empty the object
     return () => {
       setevent({});
     };
   });
 
-  // We navigate to the editevent view and send the object with - Chris
+  // We navigate to the editevent view and send the object with
+  // The key we send here is cruical, it defines if we want to edit or add a event
   const handleEdit = () => {
     const event = route.params.event;
     navigation.navigate("Add / Edit Event", {
@@ -36,9 +37,9 @@ const EventDetails = ({ route, navigation }) => {
     });
   };
 
-  // We ask the user for confirmation - Chris
+  // We ask the user for confirmation
   const confirmDelete = () => {
-    // which OS is used? in this case we ask if it is mobile - Chris
+    // which OS is used? in this case we ask if it is mobile
     if (Platform.OS === "ios" || Platform.OS === "android") {
       Alert.alert("Are you sure?", "Do you want to delete the event?", [
         { text: "Cancel", style: "cancel" },
@@ -48,17 +49,17 @@ const EventDetails = ({ route, navigation }) => {
     }
   };
 
-  // We Delete the car using firebase methods - Chris
+  // We Delete the car using firebase methods
   const handleDelete = () => {
     const id = route.params.event[0];
     try {
       firebase
         .database()
-        // The events ID is used - Chris
+        // The events ID is used
         .ref(`/events/${id}`)
-        // Remove the data - Chris
+        // Remove the data
         .remove();
-      // And navigate back- Chris
+      // And navigate back
       navigation.goBack();
     } catch (error) {
       Alert.alert(error.message);
@@ -69,7 +70,7 @@ const EventDetails = ({ route, navigation }) => {
   if (!event) {
     return <Text>No data</Text>;
   }
-
+  // Defining the initial state of the array that contains information about the Event
   const initialState = {
     ContactInfo: "",
     DateOfEvent: "",
@@ -92,18 +93,18 @@ const EventDetails = ({ route, navigation }) => {
     };
   }, []);
 
-  // Function that allows a user to join an event by pushing their email to the Evenet
+  // Function that allows a user to join an event by pushing their email to the Event
   const handleJoinEvent = () => {
     const CurrUserMail = firebase.auth().currentUser.email;
     const { Members } = newEvent;
 
-    // We save the new values in the database and redirect to EventDetails - Chris
+    // We save the new values in the database and redirect to EventDetails
     const id = route.params.event[0];
     try {
       firebase
         .database()
         .ref(`/events/${id}`)
-        // We use update to update the firebase database
+        // update the firebase database
         .update({
           Members: CurrUserMail,
         });
@@ -116,7 +117,7 @@ const EventDetails = ({ route, navigation }) => {
     }
   };
 
-  //All content rendered - Chris
+  // All content rendered
   return (
     <View style={styles.container}>
       <Button title="Edit" onPress={() => handleEdit()} color="#3F5992" />
@@ -138,10 +139,10 @@ const EventDetails = ({ route, navigation }) => {
   );
 };
 
-// Export component - Chris
+// Export component
 export default EventDetails;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "flex-start" },
   row: {

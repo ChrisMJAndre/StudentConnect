@@ -1,4 +1,4 @@
-// Imports - Chris
+// React imports
 import React from "react";
 import {
   View,
@@ -12,15 +12,15 @@ import {
 import firebase from "firebase";
 import { useEffect, useState } from "react";
 
-// Define the Component functionality- Chris
+// Define the Component that is later exported to app.js
 const ShowJoinedEvents = ({ route, navigation }) => {
   const [event, setevent] = useState({});
 
-  // Fetches the events values and set them - Chris
+  // Fetches the events values and set them
   useEffect(() => {
     setevent(route.params.event[1]);
 
-    // When we leave the view, empty the object - Chris
+    // When we leave the view, empty the object
     return () => {
       setevent({});
     };
@@ -46,7 +46,7 @@ const ShowJoinedEvents = ({ route, navigation }) => {
   useEffect(() => {
     const event = route.params.event[1];
     setnewEvent(event);
-    // Remove the data when we leave the view - Chris
+    // Remove the data when we leave the view
     return () => {
       setnewEvent(initialState);
     };
@@ -61,11 +61,10 @@ const ShowJoinedEvents = ({ route, navigation }) => {
       firebase
         .database()
         .ref(`/events/${id}`)
-        // Vi bruger update, så kun de felter vi angiver, bliver ændret
+        // Members is set to be an empty string so that you are no longer joined
         .update({
           Members: "",
         });
-      // Når event er ændret, går vi tilbage.
       Alert.alert("You have left the event");
       const event = [id, newEvent];
       navigation.navigate("Event List", { event });

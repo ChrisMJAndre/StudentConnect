@@ -1,4 +1,4 @@
-// Imports - Chris
+// React Imports
 import React from "react";
 import {
   View,
@@ -12,15 +12,15 @@ import {
 import firebase from "firebase";
 import { useEffect, useState } from "react";
 
-// Define the Component functionality- Chris
+// Define the Component that is later exported to app.js
 const ShowJoinedGroups = ({ route, navigation }) => {
   const [group, setgroup] = useState({});
 
-  // Fetches the Groups values and set them - Chris
+  // Fetches the Groups values and set them
   useEffect(() => {
     setgroup(route.params.group[1]);
 
-    // When we leave the view, empty the object - Chris
+    // When we leave the view, empty the object
     return () => {
       setgroup({});
     };
@@ -43,7 +43,7 @@ const ShowJoinedGroups = ({ route, navigation }) => {
   useEffect(() => {
     const group = route.params.group[1];
     setnewGroup(group);
-    // Remove the data when we leave the view - Chris
+    // Remove the data when we leave the view
     return () => {
       setnewGroup(initialState);
     };
@@ -52,17 +52,16 @@ const ShowJoinedGroups = ({ route, navigation }) => {
   const handleLeaveGroup = () => {
     const { Members } = newGroup;
 
-    // We save the new values in the database and redirect to GroupDetails - Chris
+    // We save the new values in the database and redirect to GroupDetails
     const id = route.params.group[0];
     try {
       firebase
         .database()
         .ref(`/groups/${id}`)
-        // Vi bruger update, så kun de felter vi angiver, bliver ændret
+        // Members is set to be an empty string so that you are no longer joined
         .update({
           Members: "",
         });
-      // Når bilen er ændret, går vi tilbage.
       Alert.alert("You have left the group");
       const group = [id, newGroup];
       navigation.navigate("Group List", { group });
@@ -71,7 +70,7 @@ const ShowJoinedGroups = ({ route, navigation }) => {
     }
   };
 
-  //All content rendered - Chris
+  //All content rendered
   return (
     <View style={styles.container}>
       {Object.entries(group).map((item, index) => {
@@ -87,10 +86,10 @@ const ShowJoinedGroups = ({ route, navigation }) => {
   );
 };
 
-// Export component - Chris
+// Export component
 export default ShowJoinedGroups;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "flex-start" },
   row: {

@@ -1,4 +1,4 @@
-// Imports - Chris
+// React Imports
 import React from "react";
 import {
   View,
@@ -10,13 +10,12 @@ import {
 } from "react-native";
 import firebase from "firebase";
 import { useEffect, useState } from "react";
-//import { useHistory } from "react-router-dom";
 
-// Define component - Chris
+// Define component that is later exported to app.js
 const JoinedGroup = ({ navigation }) => {
   const [groups, setgroups] = useState();
 
-  // We snapshot the groups defined - Chris - read up on what a snapshot is- Chris
+  // We snapshot the groups defined
   useEffect(() => {
     if (!groups) {
       firebase
@@ -28,17 +27,16 @@ const JoinedGroup = ({ navigation }) => {
     }
   }, []);
 
-  // If there is not groups then display message - Chris
+  // If there is not groups then display message
   if (!groups) {
     return <Text>Loading... or Database is empty</Text>;
   }
 
-  // We search in the array for groups and find the group object that matches the id we sendt with - Chris
+  // We search in the array for groups and find the group object that matches the id we sendt with
   const handleSelectGroup = (id) => {
-    const group = Object.entries(groups).find(
-      (group) => group[0] === id /*id*/
-    );
+    const group = Object.entries(groups).find((group) => group[0] === id);
 
+    // Navigate to next component and send the object with
     navigation.navigate("Show Joined Groups", { group });
   };
 
@@ -46,6 +44,7 @@ const JoinedGroup = ({ navigation }) => {
   const groupArray = Object.values(groups);
   const groupKeys = Object.keys(groups);
 
+  // Only show the groups that are joined, this is done by looking if the groups contains the users email
   const joinedGroupFilter = groupArray.filter(
     (item) => item.Members == firebase.auth().currentUser.email
   );
@@ -70,10 +69,10 @@ const JoinedGroup = ({ navigation }) => {
   );
 };
 
-// Export component - Chris
+// Export component
 export default JoinedGroup;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

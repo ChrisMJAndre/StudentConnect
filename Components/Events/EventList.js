@@ -1,4 +1,4 @@
-// Imports - Chris
+// React imports
 import React from "react";
 import {
   View,
@@ -11,12 +11,14 @@ import {
 import firebase from "firebase";
 import { useEffect, useState } from "react";
 
-// Define component that is later exported to app.js - Chris
+// Define component that is later exported to app.js
 const EventList = ({ navigation }) => {
+  // Set state for event and filterkey
+  // Filterkey is set to null to ensure that we do not filter as a standard
   const [events, setevents] = useState();
   const [filterKey, setFilterKey] = useState(null);
 
-  // We snapshot the events defined - Chris
+  // We snapshot the events already defined
   useEffect(() => {
     if (!events) {
       firebase
@@ -28,11 +30,12 @@ const EventList = ({ navigation }) => {
     }
   }, []);
 
-  // If there is not events then display message - Chris
+  // If there is not events then display message
   if (!events) {
     return <Text>Loading... or Database is empty</Text>;
   }
 
+  // Define to be an empty object
   let filteredEvent = {};
 
   // loops based on filter key which equals the key we want to show in list
@@ -50,18 +53,20 @@ const EventList = ({ navigation }) => {
 
   // We search in the array for events and find the event object that matches the id we sendt with - Chris
   const handleSelectEvent = (id) => {
-    const event = Object.entries(events).find(
-      (event) => event[0] === id /*id*/
-    );
-    console.log(event, "event");
+    const event = Object.entries(events).find((event) => event[0] === id);
 
+    // Once an event has been pressed navigate to event details and display that events details
     navigation.navigate("Event Details", { event });
   };
 
+  // Simple functions that sets the value of Filterkey to the selected value
   const handleToggle = (key) => {
     setFilterKey(key);
   };
 
+  // All content rendered
+  // 4 Filter Options
+  // And a flatlist containing all events
   return (
     <View>
       <View style={styles.buttonTitle}>
@@ -105,10 +110,10 @@ const EventList = ({ navigation }) => {
   );
 };
 
-// Export component - Chris
+// Export component
 export default EventList;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

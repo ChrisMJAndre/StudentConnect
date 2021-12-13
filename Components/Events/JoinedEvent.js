@@ -1,4 +1,4 @@
-// Imports - Chris
+// React imports
 import React from "react";
 import {
   View,
@@ -10,13 +10,12 @@ import {
 } from "react-native";
 import firebase from "firebase";
 import { useEffect, useState } from "react";
-//import { useHistory } from "react-router-dom";
 
-// Define component - Chris
+// Define component that is later exported to app.js
 const JoinedEvent = ({ navigation }) => {
   const [events, setevents] = useState();
 
-  // We snapshot the events defined - Chris - read up on what a snapshot is- Chris
+  // We snapshot the events defined
   useEffect(() => {
     if (!events) {
       firebase
@@ -28,17 +27,16 @@ const JoinedEvent = ({ navigation }) => {
     }
   }, []);
 
-  // If there is not events then display message - Chris
+  // If there is not events then display message
   if (!events) {
     return <Text>Loading... or Database is empty</Text>;
   }
 
-  // We search in the array for events and find the event object that matches the id we sendt with - Chris
+  // We search in the array for events and find the event object that matches the id we sendt with
   const handleSelectEvent = (id) => {
-    const event = Object.entries(events).find(
-      (event) => event[0] === id /*id*/
-    );
+    const event = Object.entries(events).find((event) => event[0] === id);
 
+    // Navigate to the events that are joined
     navigation.navigate("Show Joined Events", { event });
   };
 
@@ -46,6 +44,7 @@ const JoinedEvent = ({ navigation }) => {
   const eventArray = Object.values(events);
   const eventKeys = Object.keys(events);
 
+  // Only show the events that are joined, this is done by looking if the events contains the users email
   const joinedEventFilter = eventArray.filter(
     (item) => item.Members == firebase.auth().currentUser.email
   );
@@ -70,10 +69,10 @@ const JoinedEvent = ({ navigation }) => {
   );
 };
 
-// Export component - Chris
+// Export component
 export default JoinedEvent;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

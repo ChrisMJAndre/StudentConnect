@@ -1,4 +1,4 @@
-// Imports - Chris
+// React imports
 import React from "react";
 import {
   View,
@@ -10,15 +10,13 @@ import {
 } from "react-native";
 import firebase from "firebase";
 import { useEffect, useState } from "react";
-//import { useHistory } from "react-router-dom";
 
-// Define component - Chris
+// Define component that is later exported to app.js
 const GroupList = ({ navigation }) => {
   const [groups, setgroups] = useState();
   const [filterKey, setFilterKey] = useState(null);
-  const [JoinedKey, setJoinedKey] = useState(null);
 
-  // We snapshot the groups defined - Chris - read up on what a snapshot is- Chris
+  // We snapshot the groups defined - Chris - read up on what a snapshot is
   useEffect(() => {
     if (!groups) {
       firebase
@@ -30,12 +28,12 @@ const GroupList = ({ navigation }) => {
     }
   }, []);
 
-  // If there is not groups then display message - Chris
+  // If there is not groups then display message
   if (!groups) {
     return <Text>Loading... or Database is empty</Text>;
   }
-  // Flatlist expects an array. Therefore we take all our values from our group object and use an array for the list - Chris
 
+  // Define to be an empty object
   let filteredGroup = {};
 
   // loops based on filter key which equals the key we want to show in list
@@ -51,28 +49,45 @@ const GroupList = ({ navigation }) => {
   const groupArray = Object.values(filteredGroup);
   const groupKeys = Object.keys(filteredGroup);
 
-  // We search in the array for groups and find the group object that matches the id we sendt with - Chris
+  // We search in the array for groups and find the group object that matches the id we sendt with
   const handleSelectGroup = (id) => {
-    const group = Object.entries(groups).find(
-      (group) => group[0] === id /*id*/
-    );
-    console.log(group, "group");
+    const group = Object.entries(groups).find((group) => group[0] === id);
 
+    // Navigate to group details with the object so that we can display the information
     navigation.navigate("Group Details", { group });
   };
 
+  // Simple functions that sets the value of Filterkey to the selected value
   const handleToggle = (key) => {
     setFilterKey(key);
   };
 
-  console.log(groupArray, "filter");
+  // All content rendered
+  // 4 Filter Options
+  // And a flatlist containing all Groups
   return (
     <View>
       <View style={styles.filter}>
-        <Button onPress={() => handleToggle(null)} title={"All"} color={"#3F5992"} />
-        <Button onPress={() => handleToggle("Study")} title={"Study"} color={"#3F5992"} />
-        <Button onPress={() => handleToggle("Nightout")} title={"Nightout"} color={"#3F5992"} />
-        <Button onPress={() => handleToggle("Social")} title={"Social"} color={"#3F5992"}/>
+        <Button
+          onPress={() => handleToggle(null)}
+          title={"All"}
+          color={"#3F5992"}
+        />
+        <Button
+          onPress={() => handleToggle("Study")}
+          title={"Study"}
+          color={"#3F5992"}
+        />
+        <Button
+          onPress={() => handleToggle("Nightout")}
+          title={"Nightout"}
+          color={"#3F5992"}
+        />
+        <Button
+          onPress={() => handleToggle("Social")}
+          title={"Social"}
+          color={"#3F5992"}
+        />
       </View>
       <FlatList
         data={groupArray}
@@ -95,10 +110,10 @@ const GroupList = ({ navigation }) => {
   );
 };
 
-// Export component - Chris
+// Export component
 export default GroupList;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

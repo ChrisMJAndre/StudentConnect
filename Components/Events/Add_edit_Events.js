@@ -1,4 +1,4 @@
-// Imports
+// React Imports
 import React from "react";
 import {
   View,
@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 
 // Defining the component that is later exported to App.js
 const Add_edit_Event = ({ navigation, route }) => {
-  // Setting useState for the picker
+  // Setting useState for the picker, initial state set to empty string
   const [selectedValue, setSelectedValue] = useState("");
 
   // Defining the initial state of the array that contains information about the Event
@@ -35,27 +35,27 @@ const Add_edit_Event = ({ navigation, route }) => {
   // Defining newEvent and its state
   const [newEvent, setnewEvent] = useState(initialState);
 
-  // This statement should return true if we are in Edit Event
+  // Depending on if isEditEvent is true or not we know if the user want to create a new Event or edit an existing one
   const isEditEvent = route.params.item === "EditEvent";
 
-  // If it is true we should store the params in const Event
+  // If it is true we should store the params in const Event - this is only necessary when we want to edit a event, otherwise it can be empty.
   useEffect(() => {
     if (isEditEvent) {
       const event = route.params.event[1];
       setnewEvent(event);
     }
-    // Remove the data when we leave the view
+    // Remove the data when we leave the view - so it is empty the next time we enter the view
     return () => {
       setnewEvent(initialState);
     };
   }, []);
 
-  // Read up on this!!!!
+  // Sets the name of the event
   const changeTextInput = (name, event) => {
     setnewEvent({ ...newEvent, [name]: event });
   };
 
-  // ALSO THIS!
+  // Sets the name of the picker
   const setPicker = (name, event) => {
     setSelectedValue(event);
     setnewEvent({ ...newEvent, [name]: event });
@@ -77,6 +77,7 @@ const Add_edit_Event = ({ navigation, route }) => {
     } = newEvent;
 
     // If statement that check so that none of the boxes are left empty else return an alert
+    // Members is not a part of this statement because we auto-add the user when he/she creates an event
     if (
       EventName.length === 0 ||
       DateOfEvent.length === 0 ||
@@ -87,13 +88,15 @@ const Add_edit_Event = ({ navigation, route }) => {
       EventType.length === 0 ||
       ContactInfo.length === 0
     ) {
-      return Alert.alert("Et af felterne er tomme!");
+      return Alert.alert("One or more of the textboxs are empty!!");
     }
 
+    // Finds the current users email using firebase methode
+    // This email is then auto-added to the members of the new Event - chris
     const CurrentUserMember = firebase.auth().currentUser.email;
 
     // We save the new values in the database and redirect to EventDetails
-    // This runs if isEditEvent is true and we want to edit an event
+    // This runs if isEditEvent is true and we want to edit an event - therefore the firebase method "update"
     if (isEditEvent) {
       const id = route.params.event[0];
       try {
@@ -114,7 +117,7 @@ const Add_edit_Event = ({ navigation, route }) => {
           });
         // when the event is changed, return an alert
         // then navigate back to event details
-        Alert.alert("Din info er nu opdateret");
+        Alert.alert("Changes Saved!");
         const event = [id, newEvent];
         navigation.navigate("Event Details", { event });
       } catch (error) {
@@ -122,7 +125,7 @@ const Add_edit_Event = ({ navigation, route }) => {
       }
     }
     // If the Event does not exist we should create it
-    // meaning isEditEvent is false
+    // Meaning isEditEvent is false - therefore we use firebase method "push"
     else {
       try {
         firebase.database().ref("/events/").push({
@@ -136,7 +139,7 @@ const Add_edit_Event = ({ navigation, route }) => {
           EventType,
           Members: CurrentUserMember,
         });
-        Alert.alert(`Saved`);
+        Alert.alert(`Event Created!`);
         setnewEvent(initialState);
         navigation.navigate("Event List");
       } catch (error) {
@@ -144,8 +147,9 @@ const Add_edit_Event = ({ navigation, route }) => {
       }
     }
   };
-  // JS POWERMOVE - read up on this more, i understand basics
-  // See if we can learn more about this?!
+  // JS POWERMOVE - Supplied by exercise teachers
+  // This move maps the events based on keys and index
+  // There is an if statement here to ensure that eventType is defined
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -181,7 +185,7 @@ const Add_edit_Event = ({ navigation, route }) => {
         })}
         <Button
           // Depending on the state of isEditEvent render the button to either of the two strings
-          title={isEditEvent ? "Save changes" : "Add event"}
+          title={isEditEvent ? "Save changes" : "Add Event"}
           onPress={() => handleSave()}
           color="#3F5992"
         />
@@ -190,10 +194,10 @@ const Add_edit_Event = ({ navigation, route }) => {
   );
 };
 
-// Export the function - Chris
+// Export the component
 export default Add_edit_Event;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

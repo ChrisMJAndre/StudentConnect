@@ -1,4 +1,4 @@
-// Imports - Chris
+// React Imports
 import React from "react";
 import {
   View,
@@ -14,10 +14,11 @@ import {
 import firebase from "firebase";
 import { useEffect, useState } from "react";
 
-// Defining the component that is later exported to App.js - Chris
+// Defining the component that is later exported to App.js
 const Add_edit_Group = ({ navigation, route }) => {
   const [selectedValue, setSelectedValue] = useState("");
-  // Defining the initial state of the array that contains information about the user - Chris
+
+  // Defining the initial state of the array that contains information about the user
   const initialState = {
     GroupName: "",
     Description: "",
@@ -27,35 +28,37 @@ const Add_edit_Group = ({ navigation, route }) => {
     Members: "",
   };
 
-  // Defining newGroup and its state - Chris
+  // Defining newGroup and its state
   const [newGroup, setnewGroup] = useState(initialState);
 
-  // This statement should return true if we are in Edit Group - Chris
+  // Depending on if isEditGroup is true or not we know if the user want to create a new Group or edit an existing one
   const isEditGroup = route.params.item === "EditGroup";
 
-  // If it is true we should store the params in const Group  - Chris
+  // If it is true we should store the params in const Group
+  // Meaning we want to edit a group
   useEffect(() => {
     if (isEditGroup) {
       const group = route.params.group[1];
       setnewGroup(group);
     }
-    // Remove the data when we leave the view - Chris
+    // Remove the data when we leave the view
     return () => {
       setnewGroup(initialState);
     };
   }, []);
 
-  //
+  // Sets the name of the event
   const changeTextInput = (name, event) => {
     setnewGroup({ ...newGroup, [name]: event });
   };
 
+  // Sets the name of the picker
   const setPicker = (name, event) => {
     setSelectedValue(event);
     setnewGroup({ ...newGroup, [name]: event });
   };
 
-  // this function handles save, and checks that the elements within the array are not empty - Chris
+  // this function handles save, and checks that the elements within the array are not empty
   const handleSave = () => {
     const {
       GroupName,
@@ -66,6 +69,8 @@ const Add_edit_Group = ({ navigation, route }) => {
       Members,
     } = newGroup;
 
+    // If statement that check so that none of the boxes are left empty else return an alert
+    // Members is not a part of this statement because we auto-add the user when he/she creates a group
     if (
       GroupName.length === 0 ||
       Description.length === 0 ||
@@ -73,28 +78,29 @@ const Add_edit_Group = ({ navigation, route }) => {
       GroupType.length === 0 ||
       ContactInfo.length === 0
     ) {
-      return Alert.alert("Et af felterne er tomme!");
+      return Alert.alert("One or more of the textboxs are empty!!");
     }
+
+    // Finds the current users email using firebase methode
+    // This email is then auto-added to the members of the new group - chris
     const CurrentUserMember = firebase.auth().currentUser.email;
 
-    // We save the new values in the database and redirect to GroupDetails - Chris
+    // We save the new values in the database and redirect to GroupDetails
+    // This runs if isEditGroup is true and we want to edit a group - therefore the firebase method "update"
     if (isEditGroup) {
       const id = route.params.group[0];
       try {
-        firebase
-          .database()
-          .ref(`/groups/${id}`)
-          // Vi bruger update, så kun de felter vi angiver, bliver ændret
-          .update({
-            GroupName,
-            Description,
-            Programme,
-            ContactInfo,
-            GroupType,
-            Members,
-          });
-        // Når bilen er ændret, går vi tilbage.
-        Alert.alert("Din info er nu opdateret");
+        firebase.database().ref(`/groups/${id}`).update({
+          GroupName,
+          Description,
+          Programme,
+          ContactInfo,
+          GroupType,
+          Members,
+        });
+        // when the group is changed, return an alert
+        // then navigate back to group details
+        Alert.alert("Changes Saved!");
         const group = [id, newGroup];
         navigation.navigate("Group Details", { group });
       } catch (error) {
@@ -102,7 +108,8 @@ const Add_edit_Group = ({ navigation, route }) => {
       }
     }
 
-    // If the Group does not exist we should create it - Chris
+    // If the Group does not exist we should create it
+    // Meaning isEditGroup is false - therefore we use firebase method "push"
     else {
       try {
         firebase.database().ref("/groups/").push({
@@ -113,7 +120,7 @@ const Add_edit_Group = ({ navigation, route }) => {
           GroupType,
           Members: CurrentUserMember,
         });
-        Alert.alert(`Saved`);
+        Alert.alert(`Group Created!`);
         setnewGroup(initialState);
         navigation.navigate("Group List");
       } catch (error) {
@@ -121,7 +128,9 @@ const Add_edit_Group = ({ navigation, route }) => {
       }
     }
   };
-  // JS POWERMOVE - read up on this more, i understand basics - Chris
+  // JS POWERMOVE - Supplied by exercise teachers
+  // This move maps the events based on keys and index
+  // There is an if statement here to ensure that GroupType is defined
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -156,7 +165,7 @@ const Add_edit_Group = ({ navigation, route }) => {
             );
         })}
         <Button
-          title={isEditGroup ? "Save changes" : "Add group"}
+          title={isEditGroup ? "Save changes" : "Add Group"}
           onPress={() => handleSave()}
           color="#3F5992"
         />
@@ -165,10 +174,10 @@ const Add_edit_Group = ({ navigation, route }) => {
   );
 };
 
-// Export the function - Chris
+// Export the component
 export default Add_edit_Group;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
