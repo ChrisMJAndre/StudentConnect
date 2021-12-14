@@ -1,21 +1,18 @@
-// Import - Chris
+// React Imports
 import React, { useState } from "react";
 import {
   Button,
   Text,
   View,
   TextInput,
-  ActivityIndicator,
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  changeTextInput,
   Alert,
 } from "react-native";
 import firebase from "firebase";
-import { createIconSetFromFontello } from "react-native-vector-icons";
 
-// Define function and their constant that can be altered, aswell as their initial state - Chris
+// Define function and their constant that can be altered, aswell as their initial state
 function SetProfile() {
   const initialStateProfile = {
     Name: "",
@@ -25,23 +22,15 @@ function SetProfile() {
     Email: "",
   };
 
-  // Defining newprofile and its state - Chris
+  // Defining newprofile and its state
   const [newProfile, setnewProfile] = useState(initialStateProfile);
-
-  // THis function allows us to find the ID of the current user login (but it is the auth ID), if we send the auth id with and then find the emails for both databases
-  // IF both emails match we know it is the right user
-  // Throws function bound error tho
-  const UserID = firebase.auth().onAuthStateChanged((user) => {
-    //console.log(user.uid);
-  });
-
-  //console.log(UserID);
 
   const changeTextInput = (name, event) => {
     setnewProfile({ ...newProfile, [name]: event });
   };
 
-  // Onpress button this actives. It checks if the email and password entered matches anything in the database - Chris
+  // Onpress button this actives. It sumbits a new profile to the database.
+  // It also checks if any of the fields are empty
   const handleSubmitProfile = () => {
     const { Name, DateOfBirth, StudyProgramme, PhoneNumber, Email } =
       newProfile;
@@ -53,7 +42,7 @@ function SetProfile() {
       PhoneNumber.length === 0 ||
       Email.length === 0
     ) {
-      return Alert.alert("Et af felterne er tomme!");
+      return Alert.alert("One or more of the textboxs are empty!");
     }
 
     firebase.database().ref("/testProfile/").push({
@@ -63,15 +52,16 @@ function SetProfile() {
       PhoneNumber,
       Email,
     });
-    Alert.alert(`Saved`);
+    Alert.alert(`Profile Created!`);
     setnewProfile(initialStateProfile);
   };
 
+  // Function that allows user to signout
   const handleLogOut = async () => {
     await firebase.auth().signOut();
   };
 
-  // The Front end of the signup view - Chris
+  // All content rendered
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -102,10 +92,10 @@ function SetProfile() {
   );
 }
 
-// Export Component - Chris
+// Export Component
 export default SetProfile;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

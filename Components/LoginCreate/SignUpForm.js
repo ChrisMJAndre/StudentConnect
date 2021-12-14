@@ -1,4 +1,4 @@
-// Import - Chris
+// React Imports
 import React, { useState } from "react";
 import {
   Button,
@@ -10,19 +10,24 @@ import {
 } from "react-native";
 import firebase from "firebase";
 
-// Define function and their constant that can be altered, aswell as their initial state - Chris
+// Define function and their constant that can be altered, aswell as their initial state
 function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isCompleted, setCompleted] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // Simple button that activates handlesubmit when you want to signup - Chris
+  // Simple button that activates handlesubmit when you want to signup
   const renderButton = () => {
-    return <Button onPress={() => handleSubmit()} title="Create User" color="#3F5992"/>;
+    return (
+      <Button
+        onPress={() => handleSubmit()}
+        title="Create User"
+        color="#3F5992"
+      />
+    );
   };
 
-  // Onpress button this actives. It checks if the email and password entered matches anything in the database - Chris
+  // Onpress button this actives. It creates a new user with the entered email and password and stores it in the database
   const handleSubmit = async () => {
     try {
       await firebase
@@ -34,7 +39,7 @@ function SignUpForm() {
     }
   };
 
-  // The Front end of the signup view - Chris
+  // All content rendered
   return (
     <View>
       <Text style={StyleSheet.header}> Sign Up </Text>
@@ -59,10 +64,10 @@ function SignUpForm() {
   );
 }
 
-// Export Component - Chris
+// Export Component
 export default SignUpForm;
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   error: {
     color: "red",

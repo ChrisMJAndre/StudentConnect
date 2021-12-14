@@ -1,10 +1,11 @@
+// React Imports
 import React, { useEffect, useState } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
 
 const ImageScreen = ({ route }) => {
   const [image, setImage] = useState("");
 
-  /* du sætter billedet fra dine parameter og i return fjerne du val*/
+  // Image is set to the params sendt with, and emptied upon leaving
   useEffect(() => {
     setImage(route.params.image);
 
@@ -13,6 +14,7 @@ const ImageScreen = ({ route }) => {
     };
   }, []);
 
+  // All content rendered
   return (
     <View>
       <Image

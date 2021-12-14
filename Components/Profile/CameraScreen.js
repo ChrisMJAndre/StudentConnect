@@ -1,3 +1,4 @@
+// React Imports
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Camera } from "expo-camera";
 import {
@@ -13,7 +14,6 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { StatusBar } from "expo-status-bar";
-import * as MediaLibrary from "expo-media-library";
 
 const CameraScreen = ({ navigation }) => {
   const cameraRef = useRef();
@@ -22,10 +22,9 @@ const CameraScreen = ({ navigation }) => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [loading, setLoading] = useState(false);
 
-  /*UseEffect kører når komponenten bliver kørt ved hvert render en gang*/
+  // Ask the user for permission to use their camera
   useEffect(() => {
     (async () => {
-      /*Få camera permissions*/
       const { status } = await Camera.requestPermissionsAsync();
       if (status !== "granted") {
         alert("Sorry, we need camera permissions to make this work!");
@@ -38,17 +37,17 @@ const CameraScreen = ({ navigation }) => {
           alert("Sorry, we need camera roll permissions to make this work!");
         }
       }
-      /*Brug state til at styre perimissions*/
+      // If the user gave permission set the state of "hasPermission" to granted
       setHasPermission(status === "granted");
     })();
   }, []);
 
-  /*Hvis du ikke har Permission, returner nothing*/
+  // If we did not get permission render nothing
   if (hasPermission === null) {
     return <View />;
   }
 
-  /*Hvis du ikke har accepteret*/
+  // If the user did not accept permission
   if (hasPermission === false) {
     return (
       <View style={styles.gallery}>
@@ -68,10 +67,7 @@ const CameraScreen = ({ navigation }) => {
     setLoading(true);
     const result = await cameraRef.current.takePictureAsync();
 
-    /*Udkommenter nedenstående for at gemme billedet taget til telefonen*/
-    /*await MediaLibrary.saveToLibraryAsync(result.uri)*/
-
-    /*Vi ligger vores taget billedet først ind i arrayet*/
+    // The pictures are saved in our array
     setImagesArr((imagesArr) => [result].concat(imagesArr));
     setLoading(false);
   };
@@ -149,15 +145,11 @@ const CameraScreen = ({ navigation }) => {
               >
                 <Text style={styles.text}> Flip </Text>
               </TouchableOpacity>
-
-              {/*Gir sig selv*/}
               <TouchableOpacity style={styles.button} onPress={snap}>
                 <Text style={styles.text}>
                   {loading ? "Loading..." : "Tag billede"}
                 </Text>
               </TouchableOpacity>
-
-              {/*Skift retning på kamera*/}
               <TouchableOpacity style={styles.button} onPress={pickImage}>
                 <Text style={styles.text}> Galleri </Text>
               </TouchableOpacity>

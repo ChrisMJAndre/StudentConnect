@@ -1,3 +1,4 @@
+// React Imports
 import React, { Component } from "react";
 import firebase from "firebase";
 import {
@@ -11,21 +12,10 @@ import {
 
 import { useEffect, useState } from "react";
 
-//Imports for Camera
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import CameraScreen from "./CameraScreen";
-import { NavigationContainer } from "@react-navigation/native";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import ImageScreen from "./ImageScreen";
-
-//KOMMENTER NEDENSTÅNDE UD, HVIS DU ØNSKER AT TILBAGEFØRE GAMMELT PROFIL-VIEW
-
+// Define the component that is later exported
 const MyProfile = (props) => {
-  // We snapshot the profiles defined - Chris - read up on what a snapshot is- Chris
-
   const [Profiles, setProfiles] = useState();
-
+  // We snapshot the profiles defined
   useEffect(() => {
     if (!Profiles) {
       firebase
@@ -37,10 +27,12 @@ const MyProfile = (props) => {
     }
   }, []);
 
+  // Firebase method that signs the user out
   const handleLogOut = async () => {
     await firebase.auth().signOut();
   };
 
+  // If the user does not exist in auth database render message
   if (!firebase.auth().currentUser) {
     return (
       <View>
@@ -49,16 +41,19 @@ const MyProfile = (props) => {
     );
   }
 
+  // We store the current users email in a const
   const currentEmail = firebase.auth().currentUser.email;
 
-  // Logs the email of the current user
-
+  // We find the profile that is created with the same email as the signed in user.
+  // In order for this to work - the email that is used to signin has to be the same as the email on the profile
   const CurrentUserish = Profiles
     ? Object.values(Profiles).filter(
         (Item) => Item.Email.toString() == currentEmail
       )[0]
     : {};
 
+  // All content rendered
+  // We can here render the content such as name, by fetching the data from the database, now that we have found the specific user
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -67,10 +62,9 @@ const MyProfile = (props) => {
             <Image
               style={styles.avatar}
               source={{
-                uri: "https://i.imgur.com/HSfOA5y.jpg",
+                uri: "https://picsum.photos/200",
               }}
             />
-
             <Text style={styles.nameTitle}>{CurrentUserish.Name}</Text>
             <Button
               onPress={() => handleLogOut()}
@@ -188,77 +182,3 @@ const styles = StyleSheet.create({
     color: "#696969",
   },
 });
-
-/* SOURCE
-https://www.bootdey.com/react-native-snippet/16/profile-detail
-https://www.bootdey.com/react-native-snippet/23/Profile-ui-example
-*/
-
-// NEDENSTÅENDE ER DEN GAMLE UI IMPLEMENTERING AF PROFILE PAGE
-
-/*
-// Allows the user to sign out using a predetermined firebase methode - Chris
-const MyProfile = (props) => {
-  const handleLogOut = async () => {
-    await firebase.auth().signOut();
-  };
-  // If the user cannot be found in the database, show "not found" - Chris
-  if (!firebase.auth().currentUser) {
-    return (
-      <View>
-        <Text>Not found</Text>
-      </View>
-    );
-  }
-  // Returns (hardcoded) data which will be replaced by a more dynamical method later - it should check for the user signed in and render it dynamically - Chris
-  
-  
-  return (
-    <View>
-      <Text> Name: Christopher Maximilian John Andr </Text>
-      <Text> Age: 22 </Text>
-      <Text> Mail: Chan19af@student.cbs.dk </Text>
-      <Text> Nationality: Sweden/China </Text>
-      <Text> Study: Ha(it). </Text>
-      <Text></Text>
-
-      <Text>Current user: {firebase.auth().currentUser.email}</Text>
-      <Button onPress={() => handleLogOut()} title="Log out" />
-
-      <Text style={styles.Top}>Notes: </Text>
-      <Text style={styles.Top}>
-        In the future you will have the ability to upload your own profile
-        picture, this is just a placehold
-      </Text>
-
-      {// Placeholder for an upload image function - Chris
-      }
-      <Image
-        style={styles.Image}
-        source={{ uri: "https://picsum.photos/200/300" }}
-      />
-    </View>
-  );
-};
-
-
-// Export component - Chris
-export default MyProfile;
-
-// Styles - Chris
-const styles = StyleSheet.create({
-  Image: {
-    top: 25,
-    width: 200,
-    height: 300,
-    alignSelf: "center",
-  },
-  Top: {
-    top: 25,
-  },
-  Top2: {
-    top: 0,
-  },
-});
-
-*/

@@ -1,28 +1,23 @@
-// Imports - Chris
+// React Imports
 import React, { useState } from "react";
-import {
-  Button,
-  Text,
-  View,
-  TextInput,
-  ActivityIndicator,
-  StyleSheet,
-} from "react-native";
+import { Button, Text, View, TextInput, StyleSheet } from "react-native";
 import firebase from "firebase";
 
-// Define function and their constant that can be altered, aswell as their initial state - Chris
+// Define function and their constant that can be altered, aswell as their initial state
+// Email and password is here pre-defined (should probs be deleted before we deliver) - chris
 function LoginForm() {
   const [email, setEmail] = useState("test@test.dk");
   const [password, setPassword] = useState("testtest");
-  const [isCompleted, setCompleted] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // Simple button that activates handlesubmit when you want to login - Chris
+  // Simple button that activates handlesubmit when you want to login
   const renderButton = () => {
-    return <Button onPress={() => handleSubmit()} title="Login" color="#3F5992"/>;
+    return (
+      <Button onPress={() => handleSubmit()} title="Login" color="#3F5992" />
+    );
   };
 
-  // Onpress button this actives. It chekcs if the email and password entered matches anything in the database - Chris
+  // Onpress button this actives. It checks if the email and password entered matches anything in the database
   const handleSubmit = async () => {
     try {
       await firebase
@@ -34,7 +29,7 @@ function LoginForm() {
     }
   };
 
-  // The Front end of the login view - Chris
+  // All content rendered
   return (
     <View>
       <Text style={StyleSheet.header}> Login </Text>
@@ -59,7 +54,7 @@ function LoginForm() {
   );
 }
 
-// Styles - Chris
+// Styles
 const styles = StyleSheet.create({
   error: {
     color: "red",

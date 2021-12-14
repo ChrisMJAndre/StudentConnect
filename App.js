@@ -1,4 +1,4 @@
-// Found this on website to remove an annoying yellow error message complaining about timeout
+// Found this on website to remove an annoying yellow error message complaining about timeout - chris
 // Error - Setting a timer for a long period of time, i.e. multiple minutes, is a performance and correctness issue on Android as it keeps the timer module awake,
 // and timers can only be called when the app is in the foreground. See https://github.com/facebook/react-native/issues/12981 for more info. (Saw setTimeout with duration 3299603ms)
 import { Image, LogBox } from "react-native";
@@ -13,9 +13,6 @@ console.warn = (message) => {
   }
 };
 
-// Import for SetProfileTest Screen
-import SetProfile from "./Components/Profile/SetProfile";
-
 // Import of dependencies - Chris
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
@@ -25,36 +22,38 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+// Import for SetProfile Screen
+import SetProfile from "./Components/Profile/SetProfile";
+
 // Imports for Login Screen - Chris
 import { useState } from "react";
 import { Card } from "react-native-paper";
-
 import SignUpForm from "./Components/LoginCreate/SignUpForm";
 import LoginForm from "./Components/LoginCreate/LoginForm";
 
 // Imports for Camera Screen
 import CameraScreen from "./Components/Profile/CameraScreen";
-import ImageScreen from "./Components/Profile/ImageScreen";
 
-// Imports for TabNavigator - Chris
-
+// Imports for MyProfile - Chris
 import MyProfile from "./Components/Profile/MyProfile";
+
 // Group imports
 import Add_edit_Group from "./Components/Groups/Add_edit_Group";
 import GroupList from "./Components/Groups/GroupList";
 import GroupDetails from "./Components/Groups/GroupDetails";
+import joinedGroup from "./Components/Groups/JoinedGroup";
+import ShowJoinedGroups from "./Components/Groups/ShowJoinedGroups";
 
 // Event imports
 import Add_edit_Event from "./Components/Events/Add_edit_Events";
 import EventList from "./Components/Events/EventList";
 import EventDetails from "./Components/Events/EventDetails";
-import joinedGroup from "./Components/Groups/JoinedGroup";
-import ShowJoinedGroups from "./Components/Groups/ShowJoinedGroups";
 import JoinedEvent from "./Components/Events/JoinedEvent";
 import ShowJoinedEvents from "./Components/Events/ShowJoinedEvents";
-// Here the code of App.js starts with the start of function App - Chris
+
+// Here the code of App.js starts with the start of function App
 export default function App() {
-  // Firebase config file obtained from firebase.google.com - Chris
+  // Firebase config file obtained from firebase.google.com
   const firebaseConfig = {
     apiKey: "AIzaSyARPNCZdXnprC5WHf-rsPv4kEhnrVmuezM",
     authDomain: "examapp-77a38.firebaseapp.com",
@@ -65,22 +64,22 @@ export default function App() {
     appId: "1:138974946795:web:dd2c9566011a6b68fd65ae",
   };
 
-  // We check if an instance of the database is already initialized - Chris
+  // We check if an instance of the database is already initialized
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
 
-  // Define user and setUser const, and the usestate to be false by default - Chris
+  // Define user and setUser const, and the usestate to be false by default
   const [user, setUser] = useState({ loggedIn: false });
-  const [Profiles, setProfiles] = useState();
   const [profiled, setProfiled] = useState(false);
+  const [Profiles, setProfiles] = useState();
 
-  // Define const for stacknavigator and bottomnavigator - Chris
+  // Define const for stacknavigator and bottomnavigator
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
   // onAuthStateChanged is a predefined methode supplied by Firebase, that constantly observe the status of the user (is he/she logged in or not?) - Chris
-  // The users status is used with a callback in the form of setUser methode, that handles the user-state variable's status - Chris
+  // The users status is used with a callback in the form of setUser methode, that handles the user-state variable's status
   function onAuthStateChange(callback) {
     return firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -91,7 +90,7 @@ export default function App() {
     });
   }
 
-  // The listener is here actived so that we can monitor the status of the user - Chris
+  // The listener is here actived so that we can monitor the status of the user
   useEffect(() => {
     const unsubscribe = onAuthStateChange(setUser);
     return () => {
@@ -99,8 +98,7 @@ export default function App() {
     };
   }, []);
 
-  // DENNE KODE SKAL BRUGES TIL AT BESTEMME AT MAN SKAL SÆTTE EN PROFIL FØR MAN MÅ SE EN PROFIL
-  // kunne godt tænke mig at smide disse to use effects ind i en if statement der tjekker om man er logget ind eller ej - if (user.loggedIn) {}
+  // Snapshot all the profiles in the database
   useEffect(() => {
     if (!Profiles) {
       firebase
@@ -112,6 +110,9 @@ export default function App() {
     }
   }, []);
 
+  // This function only runs if profiles exist and a user is logged in
+  // We check if there is a profile created and if the length is more than 0 we know it is set.
+  // If there is a profile created with the same email as the current users (the logged in user) we should set profiled = true
   useEffect(() => {
     if (Profiles && firebase.auth().currentUser) {
       const isProfiledCreated =
@@ -123,7 +124,7 @@ export default function App() {
     }
   }, [Profiles]);
 
-  // Defing the GuestPage where you can sign up or log in and link to the two corresponding components - Chris
+  // Defing the GuestPage where you can sign up or log in and link to the two corresponding components
   const GuestPage = ({ navigation }) => {
     return (
       <View style={styles.container}>
@@ -148,6 +149,7 @@ export default function App() {
     );
   };
 
+  // Signup Page
   const CreatePage = () => {
     return (
       <View style={styles.container}>
@@ -160,6 +162,7 @@ export default function App() {
     );
   };
 
+  // Profile Page with added button for Camera Page
   const ProfilePage = ({ navigation }) => {
     return (
       <View style={styles.container}>
@@ -173,6 +176,7 @@ export default function App() {
     );
   };
 
+  // Camera Page
   const CameraPage = () => {
     return (
       <View style={styles.container}>
@@ -181,6 +185,7 @@ export default function App() {
     );
   };
 
+  // Group list page with added navigation for create and show joined groups
   const GroupListPage = ({ navigation }) => {
     return (
       <View>
@@ -203,6 +208,7 @@ export default function App() {
     );
   };
 
+  // Event list page with added navigation for create event and show joined evetns
   const EventListPage = ({ navigation }) => {
     return (
       <View>
@@ -225,6 +231,7 @@ export default function App() {
     );
   };
 
+  // This stacknavigation handles the navigation for the profile page
   const ProfileStackNavigation = () => {
     return (
       <Stack.Navigator>
@@ -234,6 +241,7 @@ export default function App() {
     );
   };
 
+  // Login Stacknavigation, handles navigation between login screen and create account screen
   const LoginStackNavigation = () => {
     return (
       <Stack.Navigator>
@@ -249,7 +257,7 @@ export default function App() {
     );
   };
 
-  // Defining the stacknavigation previously defined. Name defined and what component it should link to - Chris
+  // Group Stacknavigation that handles all of the navigation within groups, this includes things such as edit, add, show joined, detail view.
   const GroupStackNavigation = () => {
     return (
       <Stack.Navigator>
@@ -264,7 +272,7 @@ export default function App() {
       </Stack.Navigator>
     );
   };
-
+  // Event Stacknavigation that handles all of the navigation within events, this includes things such as edit, add, show joined, detail view.
   const EventStackNavigation = () => {
     return (
       <Stack.Navigator>
@@ -279,30 +287,11 @@ export default function App() {
       </Stack.Navigator>
     );
   };
-
-  // If the user is logged in he/she should se the navigation container which has the bottom navigator so that the user can tab between them - Chris
-  // If not logged in the user should be thrown back to the Guest Page where they can sign up or log in - Chris
-
-  // DENNE KODE SKAL ERSTATTE TAB SCREEN FOR MY PROFILE NÅR DEN VIRKER
-  /*
-  {!profiled ? (
-          <Tab.Screen
-            name={"SETUP PROFILE TEST"}
-            component={SetProfile}
-            options={{ tabBarIcon: () => <Ionicons name="home" size={20} /> }}
-          />
-        ) : (
-          <Tab.Screen
-            name={"My Profile"}
-            component={ProfileStackNavigation}
-            options={{
-              tabBarIcon: () => <Ionicons name="home" size={20} />,
-              headerShown: null,
-            }}
-          />
-        )}
-        */
-
+  // This first if statement checks if the user is logged in or not, if the user is not logged in it should be shown the login StackNavigation
+  // If the user is logged in we also need to check if they have created a profile or not.
+  // If the profile is not created --> show setProfile View
+  // If the profile is set, then show the rest of the system --> show the Group/Event/Profile stacknavigators
+  // - chris
   return user.loggedIn ? (
     <NavigationContainer>
       <Tab.Navigator>
@@ -347,7 +336,7 @@ export default function App() {
   );
 }
 
-// Defining styles - Chris
+// Defining styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
