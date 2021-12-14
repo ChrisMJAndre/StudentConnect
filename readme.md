@@ -6,7 +6,7 @@
 2. Npm install
 3. Npm start
 4. Opret en bruger
-5. Opret en profil - brug PRÆCIS den samme email som kontoen er blevet lavet med - ellers vil den ikke matche den auth konto med realtime profil
+5. Opret en profil - brug PRÆCIS den samme email som kontoen er blevet lavet med (OBS: den er case-sensitive) - ellers vil den ikke matche den auth konto med realtime profil
 6. Du kan nu tilgå hele systemet og oprette/ændre/slette/joine/afmelde Grupper eller Events
 
 ### Alternativt - Virker kun for andriod
@@ -30,4 +30,5 @@ Projektet er published til cloud og burde kunne køre uden at starte lokalt
 
 ### Eventuelle ekstra oplysninger
 
-1. ...
+1. Testbruger - Brugernavn: test@test.dk / Password: testtest
+2. Vores picker opfører sig lidt anderledes på IOS end Andriod - den placering bliver anderledes på IOS, virker fint på andriod.
