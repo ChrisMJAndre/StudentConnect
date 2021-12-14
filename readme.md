@@ -2,16 +2,28 @@
 
 ### Guide til start
 
-#### Problemer med systemet
+1. Clone Projekt
+2. Npm install
+3. Npm start
+4. Opret en bruger
+5. Opret en profil - brug PRÆCIS den samme email som kontoen er blevet lavet med - ellers vil den ikke matche den auth konto med realtime profil
+6. Du kan nu tilgå hele systemet og oprette/ændre/slette/joine/afmelde Grupper eller Events
 
-<ul>
-    <li>Lige nu hvis man opretter flere konto og sætter profil uden at reloade appen i mellem hver oprettelse af profil så crasher appen, 
-    virker næsten til den cascher noget.. </li>
-</ul>
+### Alternativt - Virker kun for andriod
 
-#### uhensigtsmæssige aspekter af systemet
+Projektet er published til cloud og burde kunne køre uden at starte lokalt
 
-<ul>
-    <li>Lige nu så tilmelder man sig en gruppe ved at pushe sin email til eventet, Dette er ikke optimalt når flere skal tilmelde sig. 
-    Når man leaver et event så leaver alle, fordi den er nu tom.  </li>
-</ul>
+- https://expo.dev/@chrisa4/studentconnect
+
+### Manglende / Ikke færdige implementeringer
+
+1. Lige nu kan camera ikke gøre mere end at tage et billede og vise billedet. Planen er i fremtiden at man skal tage et billede og sætte det som profilbillede
+
+2. Tilmelding virker idag, men ikke optimalt. Lige nu så tilmelder man sig en gruppe ved at pushe sin email til eventet, Dette er ikke optimalt når flere skal tilmelde sig.
+   Når man leaver et event så leaver alle, fordi den er nu tom.
+
+3. Der skal i fremtiden oprettes en forbindelse mellem grupper og events, så en gruppe kan have flere events, men et event kun kan have en "host" gruppe. Idag skriver man bare manuelt Host gruppen ind.
+
+### Problemer med systemet
+
+1. Pas på med at ikke oprette flere konto og lave flere profiler uden at reloade appen i mellem hver oprettelse. Det virker til at appen casher noget som årsager at den crasher

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "2_Opgave",
-    "slug": "2_Opgave",
+    "name": "StudentConnect",
+    "slug": "studentconnect",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "This project is an exam projekt for ha.it 5 semester "
   }
 }
