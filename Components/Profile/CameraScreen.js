@@ -81,13 +81,7 @@ const CameraScreen = ({ navigation }) => {
         <ScrollView horizontal={true}>
           {imagesArr.length > 0 ? (
             imagesArr.map((image, index) => (
-              <TouchableOpacity
-                key={index}
-                style={{ paddingHorizontal: 10 }}
-                onPress={() =>
-                  navigation.navigate("image", { image: image.uri })
-                }
-              >
+              <TouchableOpacity key={index} style={{ paddingHorizontal: 10 }}>
                 <Image
                   source={{ uri: image.uri }}
                   style={{ width: 100, height: 200 }}
@@ -102,7 +96,7 @@ const CameraScreen = ({ navigation }) => {
     );
   };
 
-  /*Vælg billeder fra telefonen*/
+  // Pick image from galleri
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
