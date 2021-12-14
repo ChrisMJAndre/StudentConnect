@@ -27,3 +27,7 @@ Projektet er published til cloud og burde kunne køre uden at starte lokalt
 ### Problemer med systemet
 
 1. Pas på med at ikke oprette flere konto og lave flere profiler uden at reloade appen i mellem hver oprettelse. Det virker til at appen casher noget som årsager at den crasher
+
+### Eventuelle ekstra oplysninger
+
+1. ...
