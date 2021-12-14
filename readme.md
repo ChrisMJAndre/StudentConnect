@@ -1,5 +1,7 @@
 ## StudentConnect
 
+### Guide til start
+
 #### Problemer med systemet
 
 <ul>
