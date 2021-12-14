@@ -97,7 +97,6 @@ const GroupList = ({ navigation }) => {
             <TouchableOpacity
               style={styles.container}
               onPress={() => {
-                console.log(groups);
                 handleSelectGroup(groupKeys[index]);
               }}
             >
