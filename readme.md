@@ -24,6 +24,8 @@ Projektet er published til cloud og burde kunne køre uden at starte lokalt
 
 3. Der skal i fremtiden oprettes en forbindelse mellem grupper og events, så en gruppe kan have flere events, men et event kun kan have en "host" gruppe. Idag skriver man bare manuelt Host gruppen ind.
 
+4. Joined Groups / Events viser details for den første Group / Event i det store samlet array, ikke kun for de som der bliver filtreret på. Der skal lave en lignende løsning som i Eventlist / Grouplist hvor vi laver et nyt array og tager index på det array.
+
 ### Problemer med systemet
 
 1. Pas på med at ikke oprette flere konto og lave flere profiler uden at reloade appen i mellem hver oprettelse. Det virker til at appen casher noget som årsager at den crasher
