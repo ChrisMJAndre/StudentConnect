@@ -3,10 +3,15 @@
 ### Guide til start
 
 1. Clone Projekt
+
 2. Npm install
+
 3. Npm start
-4. Opret en bruger
+
+4. Opret en bruger - Eller brug den pre-defined bruger som er sat som standard i UseState.
+
 5. Opret en profil - brug PRÆCIS den samme email som kontoen er blevet lavet med (OBS: den er case-sensitive) - ellers vil den ikke matche den auth konto med realtime profil
+
 6. Du kan nu tilgå hele systemet og oprette/ændre/slette/joine/afmelde Grupper eller Events
 
 ### Alternativt - Virker kun for andriod
