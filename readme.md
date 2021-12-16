@@ -1,5 +1,7 @@
 ## StudentConnect
 
+https://github.com/ChrisMJAndre/StudentConnect.git
+
 ### Guide til start
 
 1. Clone Projekt
